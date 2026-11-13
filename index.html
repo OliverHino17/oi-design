@@ -246,6 +246,9 @@ a.card:hover .card-go{background:#DCDCE0}
 .vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-bottom:64px}
 .vgrid .gtile{margin:0}
 @media (max-width:960px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+.card-img-video video{display:block;width:100%;height:100%;object-fit:cover}
+.vtile .gtile-play{opacity:0}
+.vtile:hover .gtile-play{opacity:0}
 .case-end{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:48px 0 96px}
 .slot{aspect-ratio:4/5;border:1px solid var(--hair);display:flex;flex-direction:column;justify-content:space-between;padding:20px}
 .slot-mark{font-family:var(--f-display);font-weight:600;font-size:44px;letter-spacing:-0.05em;color:var(--hair);line-height:1}
@@ -435,7 +438,7 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
             </div>
           </a>
           <a class="card" href="#videos-ia">
-            <div class="card-img card-img-photo" style="background:#0A0A0A"><img src="img/ia/portada-card.webp" alt="" loading="lazy"></div>
+            <div class="card-img card-img-photo card-img-video" style="background:#0A0A0A;padding:0"><video class="autoloop" src="img/ia/portada-loop.mp4" poster="img/ia/portada-loop.webp" muted loop playsinline autoplay preload="metadata" aria-hidden="true" tabindex="-1"></video></div>
             <div class="card-body">
               <span class="card-badge" data-i18n="v_badge">Video con IA</span>
               <span class="card-title" data-i18n="v_title">Reels de producto hechos con IA</span>
@@ -851,22 +854,22 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
     </header>
     <div class="vgrid" data-gallery>
         <button type="button" class="gtile gtile-vid vtile" data-video="vid/mamba.mp4" aria-label="Reel · Mamba">
-          <video src="vid/mamba.mp4" poster="vid/mamba-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <video class="autoloop" src="vid/mamba.mp4" poster="vid/mamba-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
           <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
           <span class="gtile-cap" data-i18n="gn_11">Reel · Mamba</span>
         </button>
         <button type="button" class="gtile gtile-vid vtile" data-video="vid/arupo.mp4" aria-label="Reel · Arupo">
-          <video src="vid/arupo.mp4" poster="vid/arupo-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <video class="autoloop" src="vid/arupo.mp4" poster="vid/arupo-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
           <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
           <span class="gtile-cap" data-i18n="gn_12">Reel · Arupo</span>
         </button>
         <button type="button" class="gtile gtile-vid vtile" data-video="vid/blanco-rh.mp4" aria-label="Reel · Pelíkano Blanco RH">
-          <video src="vid/blanco-rh.mp4" poster="vid/blanco-rh-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <video class="autoloop" src="vid/blanco-rh.mp4" poster="vid/blanco-rh-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
           <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
           <span class="gtile-cap" data-i18n="gn_13">Reel · Pelíkano Blanco RH</span>
         </button>
         <button type="button" class="gtile gtile-vid vtile" data-video="vid/burdeos.mp4" aria-label="Reel · Burdeos">
-          <video src="vid/burdeos.mp4" poster="vid/burdeos-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <video class="autoloop" src="vid/burdeos.mp4" poster="vid/burdeos-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
           <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
           <span class="gtile-cap" data-i18n="gn_14">Reel · Burdeos</span>
         </button>
@@ -1190,7 +1193,7 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('[data-gallery]').forEach(function(box){
     box.querySelectorAll('.gtile').forEach(function(t){
       t.addEventListener('click',function(){open(t,box);});
-      var v=t.querySelector('video'); if(!v) return;
+      var v=t.querySelector('video'); if(!v || t.classList.contains('vtile')) return;
       t.addEventListener('mouseenter',function(){ try{ v.preload='auto'; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){} });
       t.addEventListener('mouseleave',function(){ try{ v.pause(); v.currentTime=0; }catch(e){} });
     });
@@ -1201,6 +1204,18 @@ if ('IntersectionObserver' in window) {
   lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
   document.addEventListener('keydown',function(e){ if(lb.hidden) return; if(e.key==='Escape') close(); if(e.key==='ArrowRight') step(1); if(e.key==='ArrowLeft') step(-1); });
   window.addEventListener('hashchange',function(){ if(!lb.hidden) close(); });
+})();
+
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('video.autoloop')); if(!vids.length) return;
+  var still=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play(v){ try{ var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){} }
+  vids.forEach(function(v){ v.muted=true; if(still){ v.removeAttribute('autoplay'); try{v.pause();}catch(e){} } });
+  if(still) return;
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) play(e.target); else { try{e.target.pause();}catch(x){} } }); },{threshold:0.2});
+    vids.forEach(function(v){ io.observe(v); });
+  } else vids.forEach(play);
 })();
 try { if (window.lucide) lucide.createIcons({attrs:{'stroke-width':1.5}}); } catch(e) {}
 </script>
