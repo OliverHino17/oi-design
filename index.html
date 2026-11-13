@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oliver Hinojosa · Diseñador UX/UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#FAFAF7; --ink:#0A0A0A; --cream:#E8DDB4; --amber:#8A6818; --amber-h:#6B5012;
+  --ink-soft:#5C5C58; --hair:#E8E6E0; --tint:#F2F0EA; --ink-h:#1F1F1E; --cream-deep:#D6C896;
+  --f-display:'Unbounded',system-ui,sans-serif;
+  --f-body:'Manrope',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --f-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --ease:cubic-bezier(0.2,0.6,0.2,1);
+  --max:1280px; --pad:clamp(20px,5vw,64px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{overflow-x:hidden;scroll-behavior:smooth;scroll-padding-top:80px}
+body{overflow-x:hidden;overflow-x:clip;margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img,svg{display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+
+/* type */
+.display{font-family:var(--f-display);letter-spacing:-0.035em;line-height:1.08;margin:0;text-wrap:balance}
+.label{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft);margin:0}
+.mono{font-family:var(--f-mono);font-size:12px;color:var(--ink-soft);line-height:1.4}
+.lead{font-size:clamp(17px,1.6vw,19px);line-height:1.55;color:var(--ink);max-width:56ch;margin:0}
+.body-s{font-size:15px;color:var(--ink-soft);margin:0;max-width:44ch}
+.link{color:var(--amber);border-bottom:1px solid currentColor;transition:color 200ms var(--ease)}
+.link:hover{color:var(--amber-h)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border-radius:4px;font-size:15px;font-weight:500;transition:background 120ms var(--ease),color 120ms var(--ease),border-color 120ms var(--ease)}
+.btn svg{width:18px;height:18px}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:var(--ink-h)}
+.btn-line{border:1px solid var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-cream{background:var(--cream);color:var(--ink)}
+.btn-cream:hover{background:var(--cream-deep)}
+.btn-line-dark{border:1px solid #3a3a38;color:var(--paper)}
+.btn-line-dark:hover{border-color:var(--paper)}
+.btn:active{transform:translateY(1px)}
+
+/* liquid glass buttons */
+.glass{position:relative;isolation:isolate;overflow:hidden;border-radius:999px;padding:0 28px;color:var(--paper);
+  background:rgba(10,10,10,0.22);text-shadow:0 1px 2px rgba(0,0,0,0.35);
+  -webkit-backdrop-filter:blur(10px) saturate(170%);backdrop-filter:blur(10px) saturate(170%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.55),inset 0 -1px 0 rgba(255,255,255,0.14),inset 0 0 0 1px rgba(255,255,255,0.16),inset 0 -14px 24px rgba(255,255,255,0.05),0 10px 30px rgba(0,0,0,0.35);
+  transition:transform 380ms cubic-bezier(0.34,1.56,0.64,1);will-change:transform;backface-visibility:hidden;transform:translateZ(0)}
+.glass::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(120% 100% at 28% -20%,rgba(255,255,255,0.34),rgba(255,255,255,0) 55%)}
+.glass::after{content:"";position:absolute;left:16%;right:16%;bottom:0;height:1px;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.55),rgba(255,255,255,0))}
+.glass:hover{transform:scale(1.06)}
+.glass:active{transform:scale(0.97);transition-duration:120ms}
+.glass>*{position:relative;z-index:1}
+@media (prefers-reduced-motion:reduce){.glass,.glass:hover,.glass:active{transform:none;transition:none}}
+.glass-primary{background:rgba(70,58,28,0.30)}
+@media (prefers-reduced-transparency:reduce){
+  .glass{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:#1F1F1E}
+  .glass-primary{background:var(--cream);color:var(--ink)}
+}
+
+/* dark stages */
+.stage{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+.stage>.wrap{position:relative;z-index:1}
+.stage .label,.stage .mono{color:#A8A8A4}
+.stage .lead{color:#C9C9C4}
+.stage .dot{background:var(--cream)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:var(--ink);color:var(--paper);border-bottom:1px solid transparent;transition:background 200ms var(--ease),color 200ms var(--ease),border-color 200ms var(--ease)}
+.nav.scrolled{background:rgba(10,10,10,0.55);-webkit-backdrop-filter:blur(16px) saturate(160%);backdrop-filter:blur(16px) saturate(160%);border-bottom-color:rgba(255,255,255,0.08)}
+.nav.light{background:rgba(250,250,247,0.82);color:var(--ink);border-bottom-color:var(--hair)}
+.nav .nav-links a{color:#A8A8A4}.nav .nav-links a:hover{color:var(--paper)}
+.nav.light .nav-links a{color:var(--ink-soft)}.nav.light .nav-links a:hover{color:var(--ink)}
+.nav .lang{border-color:rgba(255,255,255,0.16)}.nav .lang button{color:#A8A8A4}.nav .lang button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+.nav.light .lang{border-color:var(--hair)}.nav.light .lang button{color:var(--ink-soft)}.nav.light .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+.logo{font-family:var(--f-display);font-weight:600;font-size:22px;letter-spacing:-0.04em;line-height:1}
+.nav-links{display:flex;gap:28px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--ink-soft);transition:color 120ms var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--hair);border-radius:999px;padding:3px;font-family:var(--f-mono);font-size:12px}
+.lang button{all:unset;cursor:pointer;padding:6px 12px;border-radius:999px;color:var(--ink-soft);min-width:20px;text-align:center}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lang button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+/* hero */
+.hero{padding:clamp(64px,10vw,128px) 0 clamp(64px,8vw,112px)}
+.hero .label{margin-bottom:32px}
+.hero h1{font-weight:300;font-size:clamp(34px,5.6vw,78px);max-width:17ch}
+.hero h1 em{font-style:normal;font-weight:600}
+.hero-foot{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;margin-top:clamp(40px,6vw,72px);align-items:end}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.status{display:flex;align-items:center;gap:10px;justify-self:end}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--amber)}
+
+/* pattern band */
+.band{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);height:64px;overflow:hidden;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='64'%3E%3Ccircle cx='16' cy='18' r='4' fill='%230A0A0A'/%3E%3Crect x='13' y='27' width='6' height='25' fill='%230A0A0A'/%3E%3Ccircle cx='64' cy='39' r='12' fill='none' stroke='%230A0A0A' stroke-width='6'/%3E%3C/svg%3E");
+  background-size:96px 64px;background-repeat:repeat-x;animation:ioioi-run 4s linear infinite}
+.band:hover{animation-play-state:paused}
+@keyframes ioioi-run{from{background-position:0 0}to{background-position:-96px 0}}
+@keyframes ioioi-drift{from{background-position:0 0}to{background-position:-96px -64px}}
+
+/* sections */
+section{padding:clamp(72px,10vw,128px) 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;margin-bottom:clamp(40px,6vw,72px)}
+.sec-head h2{font-weight:400;font-size:clamp(26px,3.2vw,42px)}
+.sec-head .lead{color:var(--ink-soft)}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--hair)}
+.svc{padding:32px 32px 40px 0;border-right:1px solid var(--hair);display:flex;flex-direction:column;gap:16px}
+.svc+.svc{padding-left:32px}
+.svc:last-child{border-right:0;padding-right:0}
+.svc h3{font-family:var(--f-display);font-weight:400;font-size:19px;letter-spacing:-0.03em;line-height:1.25;margin:0}
+.svc ul{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
+.svc li{font-family:var(--f-mono);font-size:12px;color:var(--ink-soft)}
+
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:s}
+.step{border-top:1px solid var(--ink);padding-top:20px;display:flex;flex-direction:column;gap:12px}
+.step h3{font-size:18px;font-weight:700;margin:0;line-height:1.3}
+
+/* work: empty state */
+.cards-shell{position:relative}
+.cards{display:flex;gap:20px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:var(--pad);padding:24px var(--pad) 56px;margin:-24px calc(-1 * var(--pad)) -16px;scrollbar-width:none}
+.cards::-webkit-scrollbar{display:none}
+.card{flex:0 0 clamp(280px,30vw,380px);scroll-snap-align:start;display:flex;flex-direction:column;background:#fff;border-radius:28px;overflow:hidden;
+  box-shadow:0 2px 6px rgba(10,10,10,0.04),0 12px 32px rgba(10,10,10,0.07);transition:transform 380ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 300ms var(--ease)}
+a.card:hover{transform:scale(1.02);box-shadow:0 4px 10px rgba(10,10,10,0.05),0 20px 44px rgba(10,10,10,0.11)}
+a.card:hover .card-go{background:#DCDCE0}
+.card-img{aspect-ratio:1/0.82;background:var(--ink);overflow:hidden}
+.card-img svg{width:100%;height:100%}
+.card-img-photo{background:#F2F2F4}
+.card-img-photo{display:flex;align-items:center;justify-content:center;padding:14px 10px}
+.card-img-photo img{width:100%;height:100%;display:block;object-fit:contain}
+.case-cover.case-cover-photo{background:#F2F2F4;aspect-ratio:auto;border-radius:28px;padding:24px}
+.case-cover-photo img{width:100%;height:auto;display:block}
+.card-img-soon{background:var(--tint);display:flex;align-items:center;justify-content:center}
+.card-body{display:flex;flex-direction:column;flex:1;padding:24px 26px 24px}
+.card-badge{font-size:13px;font-weight:600;color:var(--amber);margin-bottom:6px}
+.card-title{font-size:21px;font-weight:600;line-height:1.25;letter-spacing:-0.01em;color:var(--ink)}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:auto;padding-top:36px}
+.card-meta{font-size:15px;color:var(--ink-soft)}
+.card-go{flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:#E8E8ED;color:#3a3a3c;display:flex;align-items:center;justify-content:center;transition:background 200ms var(--ease)}
+.card-go svg{width:22px;height:22px;stroke-width:2.2}
+.card-soon{box-shadow:none;border:1px dashed var(--hair);background:transparent}
+.cards-nav{display:none;justify-content:flex-end;gap:10px;margin-top:-8px}
+.cards-shell.scrollable .cards-nav{display:flex}
+.cards-btn{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;background:#E8E8ED;color:#3a3a3c;display:flex;align-items:center;justify-content:center;transition:opacity 200ms var(--ease)}
+.cards-btn svg{width:20px;height:20px}
+.cards-btn:disabled{opacity:.35;cursor:default}
+.cards-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.card,a.card:hover{transition:none;transform:none}}
+
+.case{padding:32px 0 0}
+.back{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--ink-soft);transition:color 120ms var(--ease)}
+.back:hover{color:var(--ink)}
+.back svg{width:18px;height:18px}
+.case-hero{padding:48px 0 48px}
+.case-hero h1{font-weight:400;font-size:clamp(32px,4.6vw,64px);max-width:20ch;margin-top:24px}
+.case-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:48px 0 0;padding-top:20px;border-top:1px solid var(--hair)}
+.case-meta div{display:flex;flex-direction:column;gap:6px}
+.case-meta dt{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft)}
+.case-meta dd{margin:0;font-size:15px}
+.case-cover{background:var(--ink);aspect-ratio:16/9;overflow:hidden}
+.case-cover svg{width:100%;height:100%}
+.case-sec{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px;padding:64px 0;border-bottom:1px solid var(--hair)}
+.case-sec h2{font-family:var(--f-display);font-weight:400;font-size:clamp(22px,2.4vw,30px);letter-spacing:-0.035em;line-height:1.2;margin:10px 0 0}
+.case-sec p{margin:0 0 16px;font-size:17px;line-height:1.65;max-width:62ch}
+.case-sec p:last-child{margin-bottom:0}
+.case-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--hair)}
+.case-list li{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:24px;padding:18px 0;border-bottom:1px solid var(--hair);font-size:16px;line-height:1.6}
+.case-list strong{font-weight:700}
+.gallery{display:flex;flex-direction:column;gap:56px;padding:8px 0 64px;border-bottom:1px solid var(--hair)}
+.shot{margin:0}
+.shot img{display:block;width:100%;height:auto;border-radius:20px;border:1px solid var(--hair);background:#fff;box-shadow:0 2px 6px rgba(10,10,10,0.04),0 16px 40px rgba(10,10,10,0.07)}
+.shot figcaption{display:grid;grid-template-columns:minmax(0,140px) minmax(0,1fr);gap:16px;margin-top:16px;font-size:15px;line-height:1.55;color:var(--ink-soft);max-width:760px}
+.shot-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:start}
+.hero-result{display:flex;align-items:center;gap:28px;margin-top:32px;padding:24px 32px;border-radius:24px;background:var(--cream)}
+.hr-num{font-family:var(--f-display);font-weight:600;font-size:clamp(44px,5.4vw,72px);letter-spacing:-0.05em;line-height:1;color:var(--ink);white-space:nowrap}
+.hr-text{display:flex;flex-direction:column;gap:6px;font-size:18px;line-height:1.4;color:var(--ink);max-width:44ch}
+.hr-text .label{color:#5a4a1c}
+.result-band{background:var(--ink);color:var(--paper);padding:clamp(72px,10vw,128px) 0;margin-top:0}
+.rb-head{display:flex;gap:16px;align-items:baseline}
+.rb-head .mono,.rb-head .label{color:#A8A8A4}
+.rb-main{display:grid;grid-template-columns:auto minmax(0,1fr);gap:40px;align-items:end;margin:28px 0 56px}
+.rb-num{font-family:var(--f-display);font-weight:600;font-size:clamp(96px,16vw,220px);letter-spacing:-0.06em;line-height:0.85;color:var(--cream)}
+.rb-lead{margin:0 0 12px;font-family:var(--f-display);font-weight:300;font-size:clamp(22px,2.6vw,36px);letter-spacing:-0.03em;line-height:1.2;max-width:22ch}
+.rb-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:28px 0;border-top:1px solid #2a2a28;border-bottom:1px solid #2a2a28;margin-bottom:40px}
+.rb-items div{display:flex;flex-direction:column;gap:6px;font-size:15px;line-height:1.55;color:#A8A8A4}
+.rb-it{font-size:17px;font-weight:700;color:var(--paper)}
+.ba{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ba-col{padding:28px;border-radius:22px;display:flex;flex-direction:column;gap:10px}
+.ba-col p{margin:0;font-size:17px;line-height:1.6}
+.ba-before{background:#161615;border:1px solid #262624;color:#A8A8A4}
+.ba-before .label{color:#77776F}
+.ba-after{background:var(--cream);color:var(--ink)}
+.ba-after .label{color:#5a4a1c}
+.rb-close{margin:40px 0 0;font-size:18px;line-height:1.6;color:#C9C9C4;max-width:62ch}
+.nstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:0 0 64px;border-bottom:1px solid var(--hair)}
+.nstat{background:#070F12;color:#E9EFED;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;min-height:240px}
+.nstat-num{font-family:var(--f-display);font-weight:600;font-size:clamp(28px,2.8vw,40px);letter-spacing:-0.04em;line-height:1;color:#34D67A}
+.nstat-t{font-size:15px;line-height:1.55;color:#C9D6D3}
+.nstat-src{margin-top:auto;font-family:var(--f-mono);font-size:11px;color:#7D9196}
+.shot-narrow{max-width:820px}
+.case-end{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:48px 0 96px}
+.slot{aspect-ratio:4/5;border:1px solid var(--hair);display:flex;flex-direction:column;justify-content:space-between;padding:20px}
+.slot-mark{font-family:var(--f-display);font-weight:600;font-size:44px;letter-spacing:-0.05em;color:var(--hair);line-height:1}
+.work-note{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;margin-top:40px;padding-top:32px;border-top:1px solid var(--hair)}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:48px}
+.about-text{display:flex;flex-direction:column;gap:20px}
+.about-text p{margin:0;font-size:18px;max-width:58ch}
+.facts{margin:40px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--hair)}
+.facts div{padding:16px 0;border-bottom:1px solid var(--hair);display:flex;flex-direction:column;gap:4px}
+.facts div:nth-child(odd){padding-right:24px}
+.facts dt{font-size:12px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--ink-soft)}
+.facts dd{margin:0;font-size:15px}
+
+/* contact (dark) */
+.contact{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+.contact .pat{position:absolute;inset:0;opacity:0.1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='64'%3E%3Ccircle cx='16' cy='18' r='4' fill='%23FAFAF7'/%3E%3Crect x='13' y='27' width='6' height='25' fill='%23FAFAF7'/%3E%3Ccircle cx='64' cy='39' r='12' fill='none' stroke='%23FAFAF7' stroke-width='6'/%3E%3C/svg%3E");
+  background-size:96px 64px;animation:ioioi-drift 12s linear infinite}
+.contact .wrap{position:relative}
+.contact .label{color:#A8A8A4;margin-bottom:28px}
+.contact h2{font-weight:300;font-size:clamp(30px,4.6vw,66px);max-width:18ch}
+.contact .lead{color:#C9C9C4;margin-top:28px}
+.contact .hero-cta{margin-top:40px}
+.contact .handles{display:flex;flex-wrap:wrap;gap:32px;margin-top:56px;padding-top:24px;border-top:1px solid #1F1F1E}
+.contact .handles .mono{color:#A8A8A4}
+
+.mail{margin-top:40px;display:flex;flex-direction:column;gap:12px}
+.mail-row{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.mail-addr{font-family:var(--f-display);font-weight:300;font-size:clamp(18px,2.6vw,32px);letter-spacing:-0.03em;color:var(--paper);border-bottom:1px solid rgba(250,250,247,0.3);overflow-wrap:anywhere;transition:border-color 200ms var(--ease)}
+.mail-addr:hover{border-color:var(--cream)}
+.mail-copy{min-height:44px;padding:0 20px;font-size:14px;cursor:pointer;font-family:inherit;border:0}
+.mail-copy svg{width:16px;height:16px}
+.contact .hero-cta{margin-top:28px}
+footer{background:var(--ink);color:#A8A8A4;border-top:1px solid #1F1F1E}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-top:28px;padding-bottom:28px}
+footer .logo{color:var(--paper);font-size:18px}
+footer a{color:var(--cream);border-bottom:1px solid currentColor}
+
+/* motion */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity 400ms var(--ease),transform 400ms var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.band,.contact .pat{animation:none}}
+/* responsive */
+@media (max-width:960px){
+  .nav-links{display:none}
+  .hero-foot,.sec-head,.statement .wrap,.about{grid-template-columns:1fr;gap:24px}
+  .status{justify-self:start}
+  .services{grid-template-columns:1fr}
+  .svc,.svc+.svc{padding:28px 0;border-right:0;border-bottom:1px solid var(--hair)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:40px}
+  .case-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .case-sec{grid-template-columns:1fr;gap:16px;padding:48px 0}
+}
+@media (max-width:560px){
+  .steps,.facts{grid-template-columns:1fr}
+  .facts div:nth-child(odd){padding-right:0}
+  .card{flex-basis:82vw}
+  .case-list li{grid-template-columns:1fr;gap:4px}
+  .shot-pair{grid-template-columns:1fr}
+  .ba{grid-template-columns:1fr}
+  .nstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rb-main{grid-template-columns:1fr;gap:16px}
+  .rb-items{grid-template-columns:1fr}
+  .hero-result{flex-direction:column;align-items:flex-start;gap:12px;padding:22px}
+  .shot figcaption{grid-template-columns:1fr;gap:4px}
+  .shot img{border-radius:14px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#inicio" class="logo" aria-label="Oliver, inicio">Oliver</a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#servicios" data-i18n="nav_services">Servicios</a>
+      <a href="#trabajo" data-i18n="nav_work">Trabajo</a>
+      <a href="#sobre-mi" data-i18n="nav_about">Sobre mí</a>
+      <a href="#contacto" data-i18n="nav_contact">Contacto</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true">ES</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero stage" id="hero">
+    <div class="wrap">
+      <p class="label reveal" data-i18n="hero_eyebrow">Diseño UX/UI · Quito, Ecuador</p>
+      <h1 class="display reveal" data-i18n-html="hero_title">Diseño interfaces que se entienden <em>a la primera.</em></h1>
+      <div class="hero-foot">
+        <div class="reveal">
+          <p class="lead" data-i18n="hero_lead">Soy Oliver Hinojosa, diseñador UX/UI. Investigo cómo las personas usan un producto y diseño interfaces web y móviles claras, consistentes y listas para desarrollo.</p>
+          <div class="hero-cta">
+            <a class="btn glass glass-primary" href="https://www.linkedin.com/in/oiproductdesigner" target="_blank" rel="noopener"><span data-i18n="cta_linkedin">Escríbeme por LinkedIn</span><i data-lucide="arrow-up-right"></i></a>
+            <a class="btn glass" href="#trabajo"><span data-i18n="cta_work">Ver mis casos</span><i data-lucide="arrow-down"></i></a>
+          </div>
+        </div>
+        <div class="status reveal">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="mono" data-i18n="status">disponible para proyectos freelance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band" aria-hidden="true"></div>
+
+  <section id="servicios">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label reveal" data-i18n="svc_eyebrow">Servicios</p>
+        <div class="reveal">
+          <h2 class="display" data-i18n="svc_title">Lo que hago.</h2>
+        </div>
+      </div>
+      <div class="services">
+        <article class="svc reveal">
+          <span class="mono">01</span>
+          <h3 data-i18n="svc1_t">Investigación UX</h3>
+          <p class="body-s" data-i18n="svc1_d">Entrevistas, pruebas de usabilidad y análisis para decidir con datos y no con suposiciones.</p>
+          <ul><li data-i18n="svc1_l1">entrevistas con usuarios</li><li data-i18n="svc1_l2">pruebas de usabilidad</li><li data-i18n="svc1_l3">journey maps</li><li data-i18n="svc1_l4">benchmarking</li></ul>
+        </article>
+        <article class="svc reveal">
+          <span class="mono">02</span>
+          <h3 data-i18n="svc2_t">Diseño de interfaces</h3>
+          <p class="body-s" data-i18n="svc2_d">Apps y sitios web, desde los wireframes hasta la interfaz final y el prototipo navegable.</p>
+          <ul><li data-i18n="svc2_l1">arquitectura de información</li><li data-i18n="svc2_l2">wireframes</li><li data-i18n="svc2_l3">ui web y móvil</li><li data-i18n="svc2_l4">prototipos en figma</li></ul>
+        </article>
+        <article class="svc reveal">
+          <span class="mono">03</span>
+          <h3 data-i18n="svc3_t">Design systems</h3>
+          <p class="body-s" data-i18n="svc3_d">Componentes, tokens y documentación para que el producto crezca ordenado y se desarrolle más rápido.</p>
+          <ul><li data-i18n="svc3_l1">componentes y variantes</li><li data-i18n="svc3_l2">tokens de diseño</li><li data-i18n="svc3_l3">documentación</li><li data-i18n="svc3_l4">handoff a desarrollo</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section id="trabajo" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="label reveal" data-i18n="wk_eyebrow">Trabajo seleccionado</p>
+        <div class="reveal">
+          <h2 class="display" data-i18n="wk_title">Casos de estudio.</h2>
+        </div>
+      </div>
+      <div class="cards-shell reveal">
+        <div class="cards" id="cards">
+          <a class="card" href="#dashboard-senderos">
+            <div class="card-img card-img-photo"><img src="img/senderos-3d-card.webp" alt="" loading="lazy"></div>
+            <div class="card-body">
+              <span class="card-badge" data-i18n="p1_badge">Caso real</span>
+              <span class="card-title" data-i18n="p1_title">Dashboard automático de visitas a los senderos NOVOPAN</span>
+              <div class="card-foot">
+                <span class="card-meta" data-i18n="p1_meta">UX/UI · Visualización de datos</span>
+                <span class="card-go" aria-hidden="true"><i data-lucide="chevron-right"></i></span>
+              </div>
+            </div>
+          </a>
+          <a class="card" href="#nitida">
+            <div class="card-img card-img-photo"><img src="img/nitida/nitida-3d-card.webp" alt="" loading="lazy"></div>
+            <div class="card-body">
+              <span class="card-badge" data-i18n="n_badge">Proyecto de máster</span>
+              <span class="card-title" data-i18n="nt_title">Nítida: inversiones en bolsa que se entienden</span>
+              <div class="card-foot">
+                <span class="card-meta" data-i18n="n_meta">Investigación UX · UI · Design system</span>
+                <span class="card-go" aria-hidden="true"><i data-lucide="chevron-right"></i></span>
+              </div>
+            </div>
+          </a>
+          <div class="card card-soon" aria-hidden="true">
+            <div class="card-img card-img-soon"><span class="slot-mark">Oi</span></div>
+            <div class="card-body">
+              <span class="card-badge" style="color:var(--ink-soft)" data-i18n="soon_badge">En preparación</span>
+              <span class="card-title" style="color:var(--ink-soft)" data-i18n="soon_title">Próximo caso de estudio</span>
+            </div>
+          </div>
+        </div>
+        <div class="cards-nav">
+          <button type="button" class="cards-btn" id="cards-prev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+          <button type="button" class="cards-btn" id="cards-next" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="work-note reveal">
+        <p class="body-s" style="max-width:60ch" data-i18n="wk_note">Estoy documentando más proyectos con su proceso completo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre-mi" style="border-top:1px solid var(--hair)">
+    <div class="wrap about">
+      <p class="label reveal" data-i18n="ab_eyebrow">Sobre mí</p>
+      <div class="reveal">
+        <div class="about-text">
+          <p data-i18n="ab_p1">Soy diseñador UX/UI de Quito. Empecé en Diseño de Producto en la UDLA, donde aprendí a pensar primero en las personas que usan las cosas todos los días.</p>
+          <p data-i18n="ab_p2">Hoy me enfoco en UX/UI y estoy terminando un máster en Diseño UX en UNIR. Trabajo en Figma, desde la investigación hasta el design system.</p>
+        </div>
+        <dl class="facts">
+          <div><dt data-i18n="f1_t">Formación</dt><dd data-i18n="f1_d">Diseño de Producto, UDLA</dd></div>
+          <div><dt data-i18n="f2_t">Posgrado</dt><dd data-i18n="f2_d">Máster en Diseño UX, UNIR</dd></div>
+          <div><dt data-i18n="f3_t">Ahora</dt><dd data-i18n="f3_d">Diseño de Marketing, Novopan del Ecuador</dd></div>
+          <div><dt data-i18n="f4_t">Idiomas</dt><dd data-i18n="f4_d">Español e inglés</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact stage" id="contacto">
+    <div class="pat" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="label reveal" data-i18n="ct_eyebrow">Contacto</p>
+      <h2 class="display reveal" data-i18n="ct_title">¿Tienes un producto digital que necesita ser más fácil de usar?</h2>
+      <p class="lead reveal" data-i18n="ct_lead">Cuéntame qué estás construyendo. Respondo en uno o dos días hábiles.</p>
+      <div class="mail reveal">
+        <span class="label" data-i18n="ct_mail">Correo</span>
+        <div class="mail-row">
+          <a class="mail-addr" href="mailto:oliverproductdesginerandco@gmail.com">oliverproductdesginerandco@gmail.com</a>
+          <button type="button" class="btn glass mail-copy" data-mail="oliverproductdesginerandco@gmail.com"><i data-lucide="copy"></i><span data-i18n="ct_copy">Copiar correo</span></button>
+        </div>
+      </div>
+      <div class="hero-cta reveal">
+        <a class="btn glass glass-primary" href="https://www.linkedin.com/in/oiproductdesigner" target="_blank" rel="noopener"><span data-i18n="cta_linkedin">Escríbeme por LinkedIn</span><i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="handles reveal">
+        <span class="mono">oliverproductdesginerandco@gmail.com</span>
+        <span class="mono">linkedin.com/in/oiproductdesigner</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="caso" class="case" hidden>
+  <div class="wrap">
+    <a class="back" href="#trabajo"><i data-lucide="arrow-left"></i><span data-i18n="c_back">Volver a casos</span></a>
+    <header class="case-hero">
+      <p class="label" data-i18n="p1_eyebrow">Caso real · Novopan del Ecuador · 2026</p>
+      <h1 class="display" data-i18n="p1_title">Dashboard automático de visitas a los senderos NOVOPAN</h1>
+      <p class="lead" style="margin-top:24px;color:var(--ink-soft)" data-i18n="p1_desc">Cada semana, las visitas a los senderos de Novopan se graficaban a mano a partir del registro en Excel de la garita. Diseñé y prototipé un dashboard que lee esos archivos, limpia los datos y le muestra a gerencia las visitas por día, semana, mes y sendero.</p>
+      <dl class="case-meta">
+        <div><dt data-i18n="c_m1t">Rol</dt><dd data-i18n="c_m1">UX/UI y análisis de datos</dd></div>
+        <div><dt data-i18n="c_m2t">Contexto</dt><dd data-i18n="c_m2">Equipo de Marketing, Novopan del Ecuador</dd></div>
+        <div><dt data-i18n="c_m3t">Estado</dt><dd data-i18n="c_m3">Prototipo funcionando con datos reales</dd></div>
+        <div><dt data-i18n="c_m4t">Herramientas</dt><dd>Figma · React · TypeScript · Excel</dd></div>
+      </dl>
+    </header>
+    <div class="case-cover case-cover-photo"><img src="img/senderos-3d.webp" alt="Vista 3D del dashboard de visitas a los senderos: el tablero completo y, delante, indicadores, ranking de senderos y evolución en el tiempo"></div>
+
+    <section class="case-sec">
+      <div><span class="mono">01</span><h2 data-i18n="c_s1">El problema</h2></div>
+      <div><p data-i18n="c_s1p">La garita anota en Excel a cada persona que entra a los senderos. Cada semana, con ese archivo, se armaban a mano gráficos de barras para reportar a gerencia: un trabajo repetitivo y lento, que además hacía difícil comparar semanas, meses o senderos entre sí.</p></div>
+    </section>
+
+    <section class="case-sec">
+      <div><span class="mono">02</span><h2 data-i18n="c_s2">Entender los datos primero</h2></div>
+      <div>
+        <p data-i18n="c_s2p1">Antes de dibujar pantallas revisé el registro real. Cada fila es una persona, así que los grupos se detectan cruzando la fecha con las horas de entrada y salida.</p>
+        <p data-i18n="c_s2p2">El sendero se escribía a mano: encontré 22 formas distintas de nombrarlo que en realidad eran 5 senderos, además de registros sin sendero, días de la semana mal escritos y un campo que mezclaba la marca del vehículo con la forma de llegada.</p>
+      </div>
+    </section>
+
+    <section class="case-sec">
+      <div><span class="mono">03</span><h2 data-i18n="c_s3">Decisiones de diseño</h2></div>
+      <ul class="case-list">
+        <li><strong data-i18n="c_d1t">La herramienta justa</strong><span data-i18n="c_d1">Evalué Tableau, pero Novopan ya tenía Microsoft 365 y pagar licencias para gerencia no se justificaba. La solución es una app propia que lee directamente los Excel de la garita.</span></li>
+        <li><strong data-i18n="c_d2t">Menos datos personales</strong><span data-i18n="c_d2">Saqué del modelo la cédula, las placas y quién autorizó la visita. Gerencia no los necesita para tomar decisiones, y es mejor no exponerlos.</span></li>
+        <li><strong data-i18n="c_d3t">Validar antes de mostrar</strong><span data-i18n="c_d3">Cada archivo pasa por una revisión que unifica los nombres de los senderos y separa los registros con errores, para que los gráficos no cuenten una historia falsa.</span></li>
+        <li><strong data-i18n="c_d4t">Prototipo primero</strong><span data-i18n="c_d4">Primero validé que los cálculos y los gráficos fueran útiles con datos reales. La identidad visual se aplica al final.</span></li>
+      </ul>
+    </section>
+
+
+    <section class="case-sec" style="border-bottom:0;padding-bottom:32px">
+      <div><span class="mono">04</span><h2 data-i18n="c_g">Recorrido por el producto</h2></div>
+      <div><p data-i18n="c_gp">Del boceto al prototipo funcionando con el archivo real de 2026. En las capturas oculté los nombres de las personas.</p></div>
+    </section>
+    <div class="gallery">
+        <figure class="shot">
+          <img src="img/senderos/00-boceto.webp" width="2000" height="1450" loading="lazy" alt="Boceto a mano del tablero: encabezado, filtros, siete indicadores, gráfica por día, evolución, ranking de senderos y tabla, con anotaciones">
+          <figcaption><span class="mono" data-i18n="g0s">00 · Bocetar</span><span data-i18n="g0">Antes de programar, boceté la estructura del tablero para ordenar qué preguntas de gerencia responde cada bloque: filtros arriba, indicadores, luego el detalle.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/senderos/01.webp" width="2000" height="1250" loading="lazy" alt="Pantalla de carga del archivo Excel">
+          <figcaption><span class="mono" data-i18n="g1s">01 · Subir</span><span data-i18n="g1">Se arrastra el Excel de la garita. Los datos se procesan en el navegador y no se guardan en ningún servidor.</span></figcaption>
+        </figure>
+      <div class="shot-pair">
+        <figure class="shot">
+          <img src="img/senderos/02.webp" width="2000" height="1164" loading="lazy" alt="Resumen de la revisión del archivo">
+          <figcaption><span class="mono" data-i18n="g2s">02 · Revisar</span><span data-i18n="g2">Antes del tablero, una revisión cuenta las filas listas y las que tienen errores, sin dejar a nadie fuera.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/senderos/02b.webp" width="2000" height="1510" loading="lazy" alt="Detalle de errores agrupados por columna, con nombres ocultos">
+          <figcaption><span class="mono" data-i18n="g3s">02 · Revisar</span><span data-i18n="g3">Cada error dice en qué fila está y qué pasa, para corregirlo en el Excel. Los compañeros sin sendero heredan el de su grupo.</span></figcaption>
+        </figure>
+      </div>
+        <figure class="shot">
+          <img src="img/senderos/03.webp" width="2000" height="1131" loading="lazy" alt="Vista principal del dashboard con filtros e indicadores">
+          <figcaption><span class="mono" data-i18n="g4s">03 · Ver</span><span data-i18n="g4">La vista principal: filtros por fechas, agrupación, sendero y día de la semana, y siete indicadores clave.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/senderos/08.webp" width="2000" height="1134" loading="lazy" alt="Dashboard filtrado por fin de semana">
+          <figcaption><span class="mono" data-i18n="g5s">04 · Filtrar</span><span data-i18n="g5">Al elegir sábado y domingo, todo el tablero se recalcula: indicadores, gráficas y tabla.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/senderos/05.webp" width="2000" height="510" loading="lazy" alt="Ranking de senderos y duración promedio por sendero">
+          <figcaption><span class="mono" data-i18n="g6s">05 · Comparar</span><span data-i18n="g6">Cada sendero conserva su color en todas las gráficas, para reconocerlo de un vistazo.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/senderos/06.webp" width="2000" height="1015" loading="lazy" alt="Personas por hora de entrada y tamaño de los grupos">
+          <figcaption><span class="mono" data-i18n="g7s">05 · Comparar</span><span data-i18n="g7">La hora de entrada y el tamaño de los grupos ayudan a planificar personal y capacidad.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/senderos/07.webp" width="2000" height="1100" loading="lazy" alt="Tabla de detalle de visitas con nombres ocultos">
+          <figcaption><span class="mono" data-i18n="g8s">06 · Buscar</span><span data-i18n="g8">El detalle de visitas se puede ordenar y buscar. En esta captura los nombres están ocultos.</span></figcaption>
+        </figure>
+    </div>
+    <section class="case-sec">
+      <div><span class="mono">05</span><h2 data-i18n="c_s4">Lo que mostró el dashboard</h2></div>
+      <div><p data-i18n="c_s4p">Con el prototipo funcionando aparecieron patrones que antes no se veían: las visitas se concentran en fines de semana y casi todas entran por la mañana; algunos lunes se disparan, posiblemente por feriados trasladados; agosto sube por las vacaciones escolares; y el sendero más corto y accesible es el que menos se usa. Preparé un informe con estos hallazgos y las preguntas abiertas para gerencia.</p></div>
+    </section>
+
+    <section class="case-sec">
+      <div><span class="mono">06</span><h2 data-i18n="c_s5">Mejorar la captura</h2></div>
+      <div><p data-i18n="c_s5p">Un buen dashboard depende de un buen registro. Propuse cuatro cambios al formato de la garita: el sendero como lista cerrada, hora de salida obligatoria, quitar el día de la semana escrito a mano y un campo propio para la forma de llegada.</p></div>
+    </section>
+
+
+  </div>
+  <section class="result-band">
+    <div class="wrap">
+      <div class="rb-head"><span class="mono">07</span><span class="label" data-i18n="r_t">Resultado</span></div>
+      <div class="rb-main">
+        <span class="rb-num">60&nbsp;%</span>
+        <p class="rb-lead" data-i18n="r_stat">de mejora en la visualización de la información de visitas</p>
+      </div>
+      <div class="rb-items">
+        <div><span class="rb-it" data-i18n="r_i1t">Cuántas personas llegan</span><span data-i18n="r_i1">Por día, semana, mes y sendero, sin armar gráficos a mano.</span></div>
+        <div><span class="rb-it" data-i18n="r_i2t">A qué hora llegan más</span><span data-i18n="r_i2">El pico de entradas se ve de un vistazo.</span></div>
+        <div><span class="rb-it" data-i18n="r_i3t">En grupos de cuántas</span><span data-i18n="r_i3">Para planificar personal y capacidad en los senderos.</span></div>
+      </div>
+      <div class="ba">
+        <div class="ba-col ba-before">
+          <span class="label" data-i18n="r_bt">Antes</span>
+          <p data-i18n="r_b">Era difícil ver cuántas personas llegaban a los senderos: los datos estaban en un Excel llenado a mano y los gráficos se armaban cada semana, también a mano.</p>
+        </div>
+        <div class="ba-col ba-after">
+          <span class="label" data-i18n="r_at">Después</span>
+          <p data-i18n="r_a">En un solo tablero se ve cuántas personas llegan, a qué hora del día llegan más y en grupos de cuántas personas.</p>
+        </div>
+      </div>
+      <p class="rb-close" data-i18n="r_c">Con ese mejor entendimiento de cómo se usan los senderos, NOVOPAN tiene una base sólida para planificar más proyectos a futuro.</p>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="case-end">
+      <a class="back" href="#trabajo"><i data-lucide="arrow-left"></i><span data-i18n="c_back">Volver a casos</span></a>
+      <span class="mono" data-i18n="c_more">más casos pronto</span>
+    </div>
+  </div>
+</main>
+
+<main id="caso-nitida" class="case" hidden>
+  <div class="wrap">
+    <a class="back" href="#trabajo"><i data-lucide="arrow-left"></i><span data-i18n="c_back">Volver a casos</span></a>
+    <header class="case-hero">
+      <p class="label" data-i18n="nt_eyebrow">Trabajo Final de Máster · Diseño UX, UNIR · 2026</p>
+      <h1 class="display" data-i18n="nt_title">Nítida: inversiones en bolsa que se entienden</h1>
+      <p class="lead" style="margin-top:24px;color:var(--ink-soft)" data-i18n="nt_desc">Nítida es una plataforma web para seguir y analizar inversiones en bolsa. Su promesa: que sepas en todo momento qué tienes, cómo vas y cuándo actuar, aunque no vengas de las finanzas.</p>
+      <dl class="case-meta">
+        <div><dt data-i18n="c_m1t">Rol</dt><dd data-i18n="nt_m1">Investigación UX, UI, marca y design system</dd></div>
+        <div><dt data-i18n="c_m2t">Contexto</dt><dd data-i18n="nt_m2">Trabajo Final de Máster, UNIR</dd></div>
+        <div><dt data-i18n="c_m3t">Estado</dt><dd data-i18n="nt_m3">Prototipo navegable en Figma</dd></div>
+        <div><dt data-i18n="c_m4t">Herramientas</dt><dd>Figma</dd></div>
+      </dl>
+    </header>
+    <div class="case-cover case-cover-photo"><img src="img/nitida/nitida-3d.webp" width="2400" height="1685" alt="Vista 3D de Nítida: la pantalla de Comunidad en escritorio y, delante, la versión móvil, la tarjeta de cartera y una publicación"></div>
+
+    <section class="case-sec">
+      <div><span class="mono">01</span><h2 data-i18n="c_s1">El problema</h2></div>
+      <div><p data-i18n="nt_s1p">Las apps de inversión están hechas para gente que ya sabe invertir. Si no vienes de las finanzas, te encuentras con palabras que no entiendes, demasiados números, miedo a equivocarte y ninguna pista de qué hacer. Al final no inviertes, abandonas o haces lo que dice un influencer.</p></div>
+    </section>
+    <div class="nstats">
+        <div class="nstat"><span class="nstat-num">50,8 / 100</span><span class="nstat-t" data-i18n="nt_st1">es la nota promedio de los ecuatorianos en conocimientos financieros.</span><span class="nstat-src">RFD, UTPL y CAF, 2025</span></div>
+        <div class="nstat"><span class="nstat-num">16&nbsp;%</span><span class="nstat-t" data-i18n="nt_st2">de los ecuatorianos entiende cómo crece el dinero cuando se reinvierten las ganancias.</span><span class="nstat-src">RFD, UTPL y CAF, 2025</span></div>
+        <div class="nstat"><span class="nstat-num">1 de 4</span><span class="nstat-t" data-i18n="nt_st3">inversores decide qué comprar por lo que dicen los influencers.</span><span class="nstat-src">FINRA Foundation, 2025</span></div>
+        <div class="nstat"><span class="nstat-num">&lt;&nbsp;40&nbsp;%</span><span class="nstat-t" data-i18n="nt_st4">de los adultos en Ecuador, Colombia y Perú confía en los bancos y entidades financieras.</span><span class="nstat-src">RFD, 2026</span></div>
+    </div>
+
+    <section class="case-sec">
+      <div><span class="mono">02</span><h2 data-i18n="nt_s2">Por qué existe</h2></div>
+      <ul class="case-list">
+        <li><strong data-i18n="nt_c1t">Palabras que nadie explica</strong><span data-i18n="nt_c1">ETF, dividendo, rendimiento, diversificación… Solo 16 de cada 100 ecuatorianos entiende cómo crece el dinero al reinvertir las ganancias.</span></li>
+        <li><strong data-i18n="nt_c2t">Demasiada información</strong><span data-i18n="nt_c2">Pantallas llenas de números y gráficos, pensadas para expertos. Cuando hay demasiadas opciones, la gente prefiere no elegir.</span></li>
+        <li><strong data-i18n="nt_c3t">Miedo y desconfianza</strong><span data-i18n="nt_c3">Cuando pierdes dinero, la app solo te muestra un número en rojo, sin contexto.</span></li>
+        <li><strong data-i18n="nt_c4t">No saber qué hacer</strong><span data-i18n="nt_c4">La app muestra datos, pero no dice qué significan para ti. Por eso muchos terminan siguiendo a influencers.</span></li>
+        <li><strong data-i18n="nt_c5t">Apps que empujan a operar</strong><span data-i18n="nt_c5">Los avisos y premios hacen que la gente compre y venda hasta un 12 % más, pero no que entienda mejor.</span></li>
+      </ul>
+    </section>
+
+    <section class="case-sec">
+      <div><span class="mono">03</span><h2 data-i18n="nt_s3">Hipótesis</h2></div>
+      <ul class="case-list">
+        <li><strong data-i18n="nt_h1t">H1 · Palabras difíciles</strong><span data-i18n="nt_h1">Si cada término técnico tiene una explicación corta justo donde aparece, la gente entenderá su dinero sin salir de la app.</span></li>
+        <li><strong data-i18n="nt_h2t">H2 · Menos información</strong><span data-i18n="nt_h2">Si la pantalla principal responde solo tres cosas (qué tengo, cómo voy y qué debo hacer) y el detalle aparece cuando lo pides, la gente entenderá más rápido y se equivocará menos.</span></li>
+        <li><strong data-i18n="nt_h3t">H3 · Miedo y confianza</strong><span data-i18n="nt_h3">Si cuando algo baja la app explica el contexto, la gente sentirá menos miedo y venderá menos por impulso.</span></li>
+        <li><strong data-i18n="nt_h4t">H4 · Saber qué hacer</strong><span data-i18n="nt_h4">Si Nítida convierte los datos en una guía simple, sin decir qué comprar o vender, sabrás cuándo actuar sin depender de un influencer.</span></li>
+        <li><strong data-i18n="nt_h5t">H5 · Aprender en la app</strong><span data-i18n="nt_h5">Si la persona aprende dentro de la app, en el momento de la duda y en español, entenderá y confiará más.</span></li>
+      </ul>
+    </section>
+
+    <section class="case-sec">
+      <div><span class="mono">04</span><h2 data-i18n="nt_s4">La marca: un lente</h2></div>
+      <div><p data-i18n="nt_s4p">El logotipo traduce la promesa en un solo gesto: la tilde de la í se convierte en una lupa verde, el único elemento enfocado de la palabra, que invita a buscar, examinar y entender cada inversión con claridad.</p></div>
+    </section>
+    <div class="gallery" style="padding-top:0">
+        <figure class="shot">
+          <img src="img/nitida/logo.webp" width="1920" height="561" loading="lazy" alt="Logotipo de Nítida: la tilde de la í es una lupa verde">
+          <figcaption><span class="mono" data-i18n="nt_g0s">Logotipo</span><span data-i18n="nt_g0">Versión en positivo y en negativo.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/nitida/colores.webp" width="1920" height="1080" loading="lazy" alt="Paleta de colores de Nítida">
+          <figcaption><span class="mono" data-i18n="nt_g1s">Color</span><span data-i18n="nt_g1">Base Tinta oscura, verde Cristal para la acción principal y lo positivo, y rojos de alerta en poca cantidad.</span></figcaption>
+        </figure>
+    </div>
+
+    <section class="case-sec">
+      <div><span class="mono">05</span><h2 data-i18n="nt_s5">Design system</h2></div>
+      <div><p data-i18n="nt_s5p">Afacad para el texto y Afacad Flux para las cifras, una retícula de espaciado de 8 px, un set propio de 41 íconos lineales y componentes con todos sus estados: botones, campos, selectores, casillas y tarjetas.</p></div>
+    </section>
+    <div class="gallery" style="padding-top:0">
+        <figure class="shot shot-narrow">
+          <img src="img/nitida/componentes.webp" width="817" height="630" loading="lazy" alt="Componentes, íconos y espaciado del design system de Nítida">
+          <figcaption><span class="mono" data-i18n="nt_g2s">Componentes</span><span data-i18n="nt_g2">Botones Primary, Secondary y Crítico con sus estados, el set de íconos y la escala de espaciado.</span></figcaption>
+        </figure>
+    </div>
+
+    <section class="case-sec">
+      <div><span class="mono">06</span><h2 data-i18n="nt_s6">Un plus: accesibilidad visual</h2></div>
+      <div>
+        <p data-i18n="nt_s6p1">Revisé el sistema con simulación de daltonismo y contraste. Para el tipo de daltonismo más común, el verde y el rojo de Nítida se ven casi iguales, así que las subidas y bajadas siempre van con flecha (▲▼) y signo (+/−). También detecté bordes de campos demasiado suaves y un botón «Eliminar» con poco contraste.</p>
+        <p data-i18n="nt_s6p2">Explicar con palabras simples, mostrar menos datos y dar una guía en texto es justo lo que necesita una persona que usa un lector de pantalla. Diseñar para quien no es financiero y para quien no ve es casi lo mismo.</p>
+      </div>
+    </section>
+
+    <section class="case-sec" style="border-bottom:0;padding-bottom:32px">
+      <div><span class="mono">07</span><h2 data-i18n="c_g">Recorrido por el producto</h2></div>
+      <div><p data-i18n="nt_gp">El flujo de Comunidad Nítida: publicar una idea sobre una inversión, del boceto al prototipo navegable en escritorio y móvil.</p></div>
+    </section>
+    <div class="gallery">
+        <figure class="shot">
+          <img src="img/nitida/bocetos.webp" width="1680" height="880" loading="lazy" alt="Bocetos a mano de las cinco pantallas del flujo">
+          <figcaption><span class="mono" data-i18n="nt_g3s">00 · Bocetar</span><span data-i18n="nt_g3">Bocetos del recorrido en escritorio: iniciar sesión, llegar a Comunidad, publicar, etiquetar el activo con $ y ver la publicación en el muro.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/nitida/lofi.webp" width="1640" height="720" loading="lazy" alt="Wireframes de baja fidelidad de la pantalla Comunidad">
+          <figcaption><span class="mono" data-i18n="nt_g4s">01 · Lo-Fi</span><span data-i18n="nt_g4">Wireframes en escritorio (1440 px) y móvil (375 px): navegación, feed y una columna con la cartera, las tendencias y sugerencias de inversores.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/nitida/hifi.webp" width="1640" height="720" loading="lazy" alt="Pantallas de alta fidelidad de Comunidad en escritorio y móvil">
+          <figcaption><span class="mono" data-i18n="nt_g5s">02 · Hi-Fi</span><span data-i18n="nt_g5">El design system aplicado: verde Cristal para la acción principal, los $TICKER y lo positivo; rojo solo para las caídas.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/nitida/comunidad.webp" width="1440" height="900" loading="lazy" alt="Pantalla Comunidad de Nítida en escritorio">
+          <figcaption><span class="mono" data-i18n="nt_g6s">03 · Comunidad</span><span data-i18n="nt_g6">Cada publicación muestra autor, sentimiento, el activo etiquetado y su variación, con acciones de me gusta, comentar y compartir.</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="img/nitida/ticker.webp" width="1440" height="900" loading="lazy" alt="Ventana de nueva publicación con autocompletado de ticker">
+          <figcaption><span class="mono" data-i18n="nt_g7s">04 · Publicar</span><span data-i18n="nt_g7">Al escribir $ aparece un autocompletado para etiquetar el activo, con su nombre y la variación del día.</span></figcaption>
+        </figure>
+        <figure class="shot shot-narrow">
+          <img src="img/nitida/modo-discreto.webp" width="768" height="274" loading="lazy" alt="Tarjeta de cartera con montos visibles y en modo discreto">
+          <figcaption><span class="mono" data-i18n="nt_g8s">05 · Modo discreto</span><span data-i18n="nt_g8">Una microinteracción: con el ojo o la tecla D, los montos se desenfocan en 300 ms para mirar la cartera en público sin mostrar cuánto tienes. Los porcentajes siguen visibles.</span></figcaption>
+        </figure>
+    </div>
+  </div>
+  <section class="result-band" style="background:#070F12">
+    <div class="wrap">
+      <div class="rb-head"><span class="mono">08</span><span class="label" data-i18n="nt_next">Cómo se validará</span></div>
+      <div class="rb-main" style="grid-template-columns:1fr;margin-bottom:40px">
+        <p class="rb-lead" style="max-width:26ch;font-size:clamp(26px,3.4vw,46px)" data-i18n="nt_next_lead">Comprobar las hipótesis con personas que no vienen de las finanzas.</p>
+      </div>
+      <div class="rb-items" style="border-color:#16262A;margin-bottom:0">
+        <div><span class="rb-it" data-i18n="nt_v1t">Prueba de comprensión</span><span data-i18n="nt_v1">Explicar palabras y responder «qué tengo y cómo voy», con y sin explicaciones (H1, H2).</span></div>
+        <div><span class="rb-it" data-i18n="nt_v2t">Prueba con caídas</span><span data-i18n="nt_v2">Ver si sienten miedo o quieren vender ante una caída, con y sin contexto (H3).</span></div>
+        <div><span class="rb-it" data-i18n="nt_v3t">Entrevistas</span><span data-i18n="nt_v3">Qué les ayuda a decidir y dónde aprenden hoy (H4, H5).</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="wrap">
+    <div class="case-end">
+      <a class="back" href="#trabajo"><i data-lucide="arrow-left"></i><span data-i18n="c_back">Volver a casos</span></a>
+      <span class="mono" data-i18n="c_more">más casos pronto</span>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="logo">Oliver</span>
+    <span class="mono" style="color:#A8A8A4" data-i18n="footer">Hecho a mano en Quito. Actualizado en noviembre de 2026.</span>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script>
+var EN = {
+  nav_services:"Services", nav_work:"Work", nav_about:"About", nav_contact:"Contact",
+  hero_eyebrow:"UX/UI design · Quito, Ecuador",
+  hero_title:"I design interfaces people get <em>the first time.</em>",
+  hero_lead:"I'm Oliver Hinojosa, a UX/UI designer. I research how people use a product and design web and mobile interfaces that are clear, consistent and ready for development.",
+  cta_linkedin:"Message me on LinkedIn", cta_work:"See my work",
+  status:"available for freelance projects",
+  svc_eyebrow:"Services", svc_title:"What I do.",
+  svc1_t:"UX research", svc1_d:"Interviews, usability tests and analysis so decisions rest on evidence, not assumptions.",
+  svc1_l1:"user interviews", svc1_l2:"usability testing", svc1_l3:"journey maps", svc1_l4:"benchmarking",
+  svc2_t:"Interface design", svc2_d:"Apps and websites, from wireframes to the final interface and a clickable prototype.",
+  svc2_l1:"information architecture", svc2_l2:"wireframes", svc2_l3:"web and mobile ui", svc2_l4:"figma prototypes",
+  svc3_t:"Design systems", svc3_d:"Components, tokens and documentation so the product grows in order and ships faster.",
+  svc3_l1:"components and variants", svc3_l2:"design tokens", svc3_l3:"documentation", svc3_l4:"developer handoff",
+  wk_eyebrow:"Selected work", wk_title:"Case studies.",
+  wk_note:"I'm documenting more projects with their full process.",
+  p1_eyebrow:"Real project · Novopan del Ecuador · 2026", p1_title:"Automated dashboard for NOVOPAN trail visits",
+  p1_desc:"Every week, visits to Novopan's hiking trails were charted by hand from the gatehouse's Excel log. I designed and prototyped a dashboard that reads those files, cleans the data and shows management visits by day, week, month and trail.",
+  p1_h1:"From hand-made charts to a board that updates itself", p1_h2:"22 different spellings of a trail name, normalized to 5", p1_h3:"Findings for management and improvements to the gatehouse log",
+  p1_badge:"Real project", p1_meta:"UX/UI · Data visualization", soon_badge:"In progress", soon_title:"Next case study", c_back:"Back to cases", c_more:"more cases soon",
+  c_m1t:"Role", c_m1:"UX/UI and data analysis", c_m2t:"Context", c_m2:"Marketing team, Novopan del Ecuador", c_m3t:"Status", c_m3:"Working prototype with real data", c_m4t:"Tools",
+  c_s1:"The problem", c_s1p:"The gatehouse logs every person who enters the trails in Excel. Every week, bar charts were built by hand from that file to report to management: slow, repetitive work that also made it hard to compare weeks, months or trails.",
+  c_s2:"Understanding the data first", c_s2p1:"Before drawing screens I went through the real log. Each row is one person, so groups are detected by matching the date with entry and exit times.",
+  c_s2p2:"Trail names were handwritten: I found 22 different spellings that were really 5 trails, plus records with no trail, misspelled weekdays and a field that mixed vehicle brand with how people arrived.",
+  c_s3:"Design decisions",
+  c_d1t:"The right tool", c_d1:"I evaluated Tableau, but Novopan already had Microsoft 365 and paying licenses for management wasn't justified. The solution is a custom app that reads the gatehouse Excel files directly.",
+  c_d2t:"Less personal data", c_d2:"I removed ID numbers, license plates and who authorized the visit from the model. Management doesn't need them to decide, and it's better not to expose them.",
+  c_d3t:"Validate before showing", c_d3:"Every file goes through a review that unifies trail names and sets aside records with errors, so the charts don't tell a false story.",
+  c_d4t:"Prototype first", c_d4:"I first validated that the calculations and charts were useful with real data. Visual identity comes last.",
+  c_g:"A walk through the product", c_gp:"From sketch to a working prototype with the real 2026 file. I hid people's names in the screenshots.",
+  g0s:"00 · Sketch", g0:"Before coding, I sketched the board's structure to sort which management question each block answers: filters on top, indicators, then the detail.",
+  g1s:"01 · Upload", g1:"The gatehouse Excel is dropped in. Data is processed in the browser and never stored on a server.",
+  g2s:"02 · Review", g2:"Before the dashboard, a review counts ready rows and rows with errors, without leaving anyone out.",
+  g3s:"02 · Review", g3:"Each error says which row it's in and what's wrong, so it can be fixed in Excel. Companions without a trail inherit their group's.",
+  g4s:"03 · View", g4:"The main view: filters by dates, grouping, trail and weekday, plus seven key indicators.",
+  g5s:"04 · Filter", g5:"Picking Saturday and Sunday recalculates the whole board: indicators, charts and table.",
+  g6s:"05 · Compare", g6:"Each trail keeps its color across every chart, so it's recognizable at a glance.",
+  g7s:"05 · Compare", g7:"Entry time and group size help plan staff and capacity.",
+  g8s:"06 · Search", g8:"The visit detail can be sorted and searched. Names are hidden in this screenshot.",
+  n_badge:"Master's project", n_meta:"UX research · UI · Design system",
+  nt_eyebrow:"Master's Thesis · UX Design, UNIR · 2026", nt_title:"Nítida: stock investing people can understand",
+  nt_desc:"Nítida is a web platform to track and analyze stock investments. Its promise: you always know what you have, how you're doing and when to act, even if you don't come from finance.",
+  nt_m1:"UX research, UI, brand and design system", nt_m2:"Master's Thesis, UNIR", nt_m3:"Clickable prototype in Figma",
+  nt_s1p:"Investing apps are built for people who already know how to invest. If you don't come from finance, you run into words you don't understand, too many numbers, fear of getting it wrong and no clue what to do. In the end you don't invest, you give up or you do what an influencer says.",
+  nt_st1:"is Ecuadorians' average score in financial knowledge.", nt_st2:"of Ecuadorians understand how money grows when gains are reinvested.",
+  nt_st3:"investors decide what to buy based on what influencers say.", nt_st4:"of adults in Ecuador, Colombia and Peru trust banks and financial institutions.",
+  nt_s2:"Why it happens",
+  nt_c1t:"Words nobody explains", nt_c1:"ETF, dividend, return, diversification… Only 16 in 100 Ecuadorians understand how money grows when gains are reinvested.",
+  nt_c2t:"Too much information", nt_c2:"Screens full of numbers and charts, designed for experts. With too many options, people prefer not to choose.",
+  nt_c3t:"Fear and distrust", nt_c3:"When you lose money, the app only shows you a red number, with no context.",
+  nt_c4t:"Not knowing what to do", nt_c4:"The app shows data but doesn't say what it means for you. That's why many end up following influencers.",
+  nt_c5t:"Apps that push you to trade", nt_c5:"Alerts and rewards make people buy and sell up to 12% more, but not understand better.",
+  nt_s3:"Hypotheses",
+  nt_h1t:"H1 · Hard words", nt_h1:"If every technical term has a short explanation right where it appears, people will understand their money without leaving the app.",
+  nt_h2t:"H2 · Less information", nt_h2:"If the main screen answers only three things (what I have, how I'm doing and what to do) and detail appears on request, people will understand faster and make fewer mistakes.",
+  nt_h3t:"H3 · Fear and trust", nt_h3:"If the app explains the context when something drops, people will feel less fear and sell less on impulse.",
+  nt_h4t:"H4 · Knowing what to do", nt_h4:"If Nítida turns data into simple guidance, without saying what to buy or sell, you'll know when to act without depending on an influencer.",
+  nt_h5t:"H5 · Learning in the app", nt_h5:"If people learn inside the app, at the moment of doubt and in Spanish, they'll understand and trust more.",
+  nt_s4:"The brand: a lens", nt_s4p:"The logo turns the promise into a single gesture: the accent on the í becomes a green magnifying glass, the only element in focus, inviting you to search, examine and understand each investment clearly.",
+  nt_g0s:"Logo", nt_g0:"Positive and negative versions.", nt_g1s:"Color", nt_g1:"A dark Ink base, Crystal green for the main action and positive values, and alert reds used sparingly.",
+  nt_s5p:"Afacad for text and Afacad Flux for figures, an 8 px spacing grid, a custom set of 41 line icons and components with all their states: buttons, inputs, selects, checkboxes and cards.",
+  nt_g2s:"Components", nt_g2:"Primary, Secondary and Critical buttons with their states, the icon set and the spacing scale.",
+  nt_s6:"A plus: visual accessibility",
+  nt_s6p1:"I reviewed the system with color-blindness simulation and contrast checks. For the most common type of color blindness, Nítida's green and red look almost the same, so gains and losses always carry an arrow (▲▼) and a sign (+/−). I also found input borders that were too faint and a Delete button with low contrast.",
+  nt_s6p2:"Explaining in plain words, showing less data and giving text guidance is exactly what a screen-reader user needs. Designing for people who aren't financial experts and for people who can't see is almost the same work.",
+  nt_gp:"The Nítida Community flow: posting an idea about an investment, from sketch to a clickable prototype on desktop and mobile.",
+  nt_g3s:"00 · Sketch", nt_g3:"Desktop journey sketches: sign in, reach Community, post, tag the asset with $ and see the post on the wall.",
+  nt_g4s:"01 · Lo-Fi", nt_g4:"Desktop (1440 px) and mobile (375 px) wireframes: navigation, feed and a column with the portfolio, trends and investors to follow.",
+  nt_g5s:"02 · Hi-Fi", nt_g5:"The design system applied: Crystal green for the main action, $TICKERS and positive values; red only for drops.",
+  nt_g6s:"03 · Community", nt_g6:"Each post shows the author, sentiment, the tagged asset and its change, with like, comment and share actions.",
+  nt_g7s:"04 · Post", nt_g7:"Typing $ opens an autocomplete to tag the asset, with its name and the day's change.",
+  nt_g8s:"05 · Discreet mode", nt_g8:"A microinteraction: with the eye icon or the D key, amounts blur in 300 ms so you can check your portfolio in public without showing how much you have. Percentages stay visible.",
+  nt_next:"How it will be validated", nt_next_lead:"Test the hypotheses with people who don't come from finance.",
+  nt_v1t:"Comprehension test", nt_v1:"Explain terms and answer \"what do I have and how am I doing\", with and without explanations (H1, H2).",
+  nt_v2t:"Drop test", nt_v2:"See whether people feel fear or want to sell during a drop, with and without context (H3).",
+  nt_v3t:"Interviews", nt_v3:"What helps them decide and where they learn today (H4, H5).",
+  r_stat2:"improvement in seeing how many people arrive, at what time and in which groups",
+  r_i1t:"How many people arrive", r_i1:"By day, week, month and trail, without building charts by hand.",
+  r_i2t:"What time most arrive", r_i2:"The entry peak is visible at a glance.",
+  r_i3t:"In groups of how many", r_i3:"To plan staff and capacity on the trails.",
+  r_t:"Outcome", r_stat:"improvement in how visit information is visualized", r_bt:"Before", r_at:"After",
+  r_b:"It was hard to see how many people were coming to the trails: the data lived in a hand-filled Excel and the charts were built by hand every week.",
+  r_a:"A single dashboard shows how many people arrive, what time of day most of them come and in groups of how many.",
+  r_c:"With that better understanding of how the trails are used, NOVOPAN has a solid basis for planning more projects in the future.",
+  c_s4:"What the dashboard revealed", c_s4p:"With the prototype running, patterns appeared that weren't visible before: visits cluster on weekends and almost everyone enters in the morning; some Mondays spike, likely due to moved holidays; August rises with school vacations; and the shortest, most accessible trail is the least used. I prepared a report with these findings and open questions for management.",
+  c_s5:"Improving the capture", c_s5p:"A good dashboard depends on a good log. I proposed four changes to the gatehouse form: trail as a closed list, mandatory exit time, dropping the handwritten weekday and a dedicated field for how people arrive.",
+  p1_t1:"dashboard", p1_t2:"data visualization", p1_t3:"data ux", p1_soon:"full case study · coming soon",
+
+  ab_eyebrow:"About",
+  ab_p1:"I'm a UX/UI designer from Quito. I started in Product Design at UDLA, where I learned to think first about the people who use things every day.",
+  ab_p2:"Today I focus on UX/UI and I'm finishing a Master's in UX Design at UNIR. I work in Figma, from research to the design system.",
+  f1_t:"Education", f1_d:"Product Design, UDLA", f2_t:"Postgraduate", f2_d:"Master's in UX Design, UNIR",
+  f3_t:"Now", f3_d:"Marketing Design, Novopan del Ecuador", f4_t:"Languages", f4_d:"Spanish and English",
+  ct_mail:"Email", ct_copy:"Copy email",
+  ct_eyebrow:"Contact", ct_title:"Have a digital product that needs to be easier to use?",
+  ct_lead:"Tell me what you're building. I reply within one or two business days.",
+  footer:"Built by hand in Quito. Updated November 2026."
+};
+var ES = {};
+document.querySelectorAll('[data-i18n]').forEach(function(el){ ES[el.dataset.i18n] = el.textContent; });
+document.querySelectorAll('[data-i18n-html]').forEach(function(el){ ES[el.dataset.i18nHtml] = el.innerHTML; });
+
+function setLang(lang){
+  var d = lang === 'en' ? EN : ES;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){ var k = el.dataset.i18n; if (d[k] != null) el.textContent = d[k]; });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){ var k = el.dataset.i18nHtml; if (d[k] != null) el.innerHTML = d[k]; });
+  document.documentElement.lang = lang;
+  document.title = lang === 'en' ? 'Oliver Hinojosa · UX/UI designer' : 'Oliver Hinojosa · Diseñador UX/UI';
+  document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
+  try { localStorage.setItem('oi-lang', lang); } catch(e) {}
+}
+document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
+try { var saved = localStorage.getItem('oi-lang'); if (saved === 'en') setLang('en'); } catch(e) {}
+
+var nav = document.getElementById('nav');
+var heroEl = document.getElementById('hero');
+var homeEl = document.getElementById('inicio');
+var CASES = { 'dashboard-senderos': document.getElementById('caso'), 'nitida': document.getElementById('caso-nitida') };
+function route(){
+  var h = location.hash.slice(1);
+  var isCase = Object.prototype.hasOwnProperty.call(CASES, h);
+  homeEl.hidden = isCase;
+  Object.keys(CASES).forEach(function(k){ CASES[k].hidden = (k !== h); });
+  if (isCase) { window.scrollTo(0, 0); }
+  else if (h) { var t = document.getElementById(h); if (t && t !== homeEl) t.scrollIntoView(); else window.scrollTo(0, 0); }
+  if (typeof onScroll === 'function') onScroll();
+}
+window.addEventListener('hashchange', route);
+function onScroll(){
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+  nav.classList.toggle('light', heroEl.getBoundingClientRect().bottom <= 72);
+}
+window.addEventListener('scroll', onScroll, {passive:true}); route();
+
+var els = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  els.forEach(function(el){ io.observe(el); });
+} else { els.forEach(function(el){ el.classList.add('in'); }); }
+
+
+/* Liquid glass: per-button displacement map so the backdrop bends at the rim (Chromium); other browsers keep the frosted fallback */
+(function(){
+  var ua = navigator.userAgent;
+  var chromium = !!window.chrome && /Chrome|Chromium|Edg\//.test(ua) && !/CriOS|FxiOS|Firefox/.test(ua);
+  var lowTransp = window.matchMedia && matchMedia('(prefers-reduced-transparency: reduce)').matches;
+  if (!chromium || lowTransp || !('ResizeObserver' in window)) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.setAttribute('aria-hidden', 'true');
+  svg.style.position = 'absolute';
+  var defs = document.createElementNS(NS, 'defs'); svg.appendChild(defs); document.body.appendChild(svg);
+
+  function buildMap(w, h){
+    var c = document.createElement('canvas'); c.width = w; c.height = h;
+    var ctx = c.getContext('2d'), img = ctx.createImageData(w, h), d = img.data;
+    var r = h / 2, bezel = Math.min(h * 0.45, 24), hw = w / 2, hh = h / 2;
+    for (var y = 0; y < h; y++){
+      for (var x = 0; x < w; x++){
+        var px = x + 0.5 - hw, py = y + 0.5 - hh;
+        var qx = Math.abs(px) - (hw - r), qy = Math.abs(py) - (hh - r);
+        var ox = Math.max(qx, 0), oy = Math.max(qy, 0);
+        var sd = Math.sqrt(ox*ox + oy*oy) + Math.min(Math.max(qx, qy), 0) - r;
+        var R = 128, G = 128;
+        if (sd <= 0 && sd > -bezel){
+          var t = 1 + sd / bezel, mag = t * t * t;
+          var nx, ny;
+          if (qx > 0 && qy > 0){ var L = Math.sqrt(qx*qx + qy*qy) || 1; nx = qx / L * Math.sign(px); ny = qy / L * Math.sign(py); }
+          else if (qx > qy){ nx = Math.sign(px); ny = 0; } else { nx = 0; ny = Math.sign(py); }
+          R = 128 - nx * mag * 127; G = 128 - ny * mag * 127;
+        }
+        var i = (y * w + x) * 4; d[i] = R; d[i+1] = G; d[i+2] = 128; d[i+3] = 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+    return c.toDataURL();
+  }
+
+  var n = 0;
+  document.querySelectorAll('.glass').forEach(function(el){
+    var id = 'lg-' + (n++), last = '';
+    var f = document.createElementNS(NS, 'filter');
+    f.setAttribute('id', id); f.setAttribute('color-interpolation-filters', 'sRGB');
+    f.setAttribute('x', '0'); f.setAttribute('y', '0'); f.setAttribute('filterUnits', 'userSpaceOnUse');
+    var im = document.createElementNS(NS, 'feImage');
+    im.setAttribute('x', '0'); im.setAttribute('y', '0'); im.setAttribute('result', 'map'); im.setAttribute('preserveAspectRatio', 'none');
+    var dm = document.createElementNS(NS, 'feDisplacementMap');
+    dm.setAttribute('in', 'SourceGraphic'); dm.setAttribute('in2', 'map'); dm.setAttribute('scale', '34');
+    dm.setAttribute('xChannelSelector', 'R'); dm.setAttribute('yChannelSelector', 'G');
+    f.appendChild(im); f.appendChild(dm); defs.appendChild(f);
+    function update(){
+      var w = Math.round(el.offsetWidth), h = Math.round(el.offsetHeight);
+      if (!w || !h || (w + 'x' + h) === last) return; last = w + 'x' + h;
+      f.setAttribute('width', w); f.setAttribute('height', h);
+      im.setAttribute('width', w); im.setAttribute('height', h);
+      im.setAttribute('href', buildMap(w, h));
+      var val = 'url(#' + id + ') blur(0.6px) saturate(170%) brightness(1.06)';
+      el.style.backdropFilter = val; el.style.webkitBackdropFilter = val;
+    }
+    new ResizeObserver(update).observe(el); update();
+  });
+})();
+
+(function(){
+  var row = document.getElementById('cards'), shell = row && row.parentElement;
+  if (!row) return;
+  var prev = document.getElementById('cards-prev'), next = document.getElementById('cards-next');
+  function step(){ var c = row.querySelector('.card'); return c ? c.getBoundingClientRect().width + 20 : 300; }
+  function sync(){
+    var over = row.scrollWidth > row.clientWidth + 4;
+    shell.classList.toggle('scrollable', over);
+    prev.disabled = row.scrollLeft <= 4;
+    next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
+  }
+  prev.addEventListener('click', function(){ row.scrollBy({left: -step(), behavior: 'smooth'}); });
+  next.addEventListener('click', function(){ row.scrollBy({left: step(), behavior: 'smooth'}); });
+  row.addEventListener('scroll', sync, {passive:true});
+  window.addEventListener('resize', sync);
+  if ('ResizeObserver' in window) new ResizeObserver(sync).observe(row);
+  sync();
+})();
+
+(function(){
+  document.querySelectorAll('.mail-copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var mail = btn.getAttribute('data-mail'), label = btn.querySelector('span');
+      function done(ok){
+        var en = document.documentElement.lang === 'en';
+        label.textContent = ok ? (en ? 'Copied' : 'Copiado') : (en ? 'Select and copy' : 'Selecciona y copia');
+        setTimeout(function(){ label.textContent = en ? 'Copy email' : 'Copiar correo'; }, 2200);
+      }
+      try {
+        navigator.clipboard.writeText(mail).then(function(){ done(true); }, function(){ selectMail(); done(false); });
+      } catch(e) { selectMail(); done(false); }
+      function selectMail(){ try { var a=document.querySelector('.mail-addr'); var r=document.createRange(); r.selectNodeContents(a); var sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(r); } catch(e){} }
+    });
+  });
+})();
+try { if (window.lucide) lucide.createIcons({attrs:{'stroke-width':1.5}}); } catch(e) {}
+</script>
+</body>
+</html>
