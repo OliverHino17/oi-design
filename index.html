@@ -450,9 +450,6 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
           </a>
         </div>
       </div>
-      <div class="work-note reveal">
-        <p class="body-s" style="max-width:60ch" data-i18n="wk_note">Estoy documentando más proyectos con su proceso completo.</p>
-      </div>
     </div>
   </section>
 
@@ -896,7 +893,6 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
 <footer>
   <div class="wrap">
     <span class="logo">Oliver</span>
-    <span class="mono" style="color:#A8A8A4" data-i18n="footer">Hecho a mano en Quito. Actualizado en noviembre de 2026.</span>
   </div>
 </footer>
 
@@ -917,7 +913,6 @@ var EN = {
   svc3_t:"Design systems", svc3_d:"Components, tokens and documentation so the product grows in order and ships faster.",
   svc3_l1:"components and variants", svc3_l2:"design tokens", svc3_l3:"documentation", svc3_l4:"developer handoff",
   wk_eyebrow:"Selected work", wk_title:"Case studies.",
-  wk_note:"I'm documenting more projects with their full process.",
   p1_eyebrow:"Real project · Novopan del Ecuador · 2026", p1_title:"Automated dashboard for NOVOPAN trail visits",
   p1_desc:"Every week, visits to Novopan's hiking trails were charted by hand from the gatehouse's Excel log. I designed and prototyped a dashboard that reads those files, cleans the data and shows management visits by day, week, month and trail.",
   p1_h1:"From hand-made charts to a board that updates itself", p1_h2:"22 different spellings of a trail name, normalized to 5", p1_h3:"Findings for management and improvements to the gatehouse log",
@@ -1028,7 +1023,6 @@ var EN = {
   ct_mail:"Email", ct_copy:"Copy email",
   ct_eyebrow:"Contact", ct_title:"Have a digital product that needs to be easier to use?",
   ct_lead:"Tell me what you're building. I reply within one or two business days.",
-  footer:"Built by hand in Quito. Updated November 2026."
 };
 var ES = {};
 document.querySelectorAll('[data-i18n]').forEach(function(el){ ES[el.dataset.i18n] = el.textContent; });
