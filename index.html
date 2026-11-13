@@ -238,11 +238,14 @@ a.card:hover .card-go{background:#DCDCE0}
 .lb-close{position:absolute;top:20px;right:20px}
 @media (max-width:560px){.lb-prev,.lb-next{position:absolute;bottom:24px}.lb-prev{left:calc(50% - 60px)}.lb-next{right:calc(50% - 60px)}.lb-fig img{max-height:calc(100vh - 180px);max-width:92vw}.gmasonry{columns:2 150px;column-gap:12px}.gtile{margin-bottom:12px;border-radius:14px}}
 .gtile-vid video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:#111}
-.gtile-play{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;background:rgba(10,10,10,0.55);color:#fff;display:flex;align-items:center;justify-content:center;transition:opacity 200ms var(--ease)}
-.gtile-play svg{width:18px;height:18px;fill:#fff}
+.gtile-play{position:absolute;top:50%;left:50%;margin:-28px 0 0 -28px;width:56px;height:56px;border-radius:50%;background:rgba(10,10,10,0.55);color:#fff;display:flex;align-items:center;justify-content:center;transition:opacity 200ms var(--ease)}
+.gtile-play svg{width:22px;height:22px;fill:#fff;margin-left:3px}
 .gtile-vid:hover .gtile-play{opacity:0}
 .lb-fig video{max-height:calc(100vh - 110px);max-width:min(80vw,900px);border-radius:16px;background:#000}
 .lb-fig video[hidden],.lb-fig img[hidden]{display:none}
+.vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-bottom:64px}
+.vgrid .gtile{margin:0}
+@media (max-width:960px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
 .case-end{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:48px 0 96px}
 .slot{aspect-ratio:4/5;border:1px solid var(--hair);display:flex;flex-direction:column;justify-content:space-between;padding:20px}
 .slot-mark{font-family:var(--f-display);font-weight:600;font-size:44px;letter-spacing:-0.05em;color:var(--hair);line-height:1}
@@ -426,7 +429,18 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
               <span class="card-badge" data-i18n="g_badge">Diseño gráfico</span>
               <span class="card-title" data-i18n="g_title">Piezas para redes de NOVOCENTRO</span>
               <div class="card-foot">
-                <span class="card-meta" data-i18n="g_meta">Posts · Historias · Reels</span>
+                <span class="card-meta" data-i18n="g_meta">Posts · Historias · Promociones</span>
+                <span class="card-go" aria-hidden="true"><i data-lucide="chevron-right"></i></span>
+              </div>
+            </div>
+          </a>
+          <a class="card" href="#videos-ia">
+            <div class="card-img card-img-photo" style="background:#0A0A0A"><img src="img/ia/portada-card.webp" alt="" loading="lazy"></div>
+            <div class="card-body">
+              <span class="card-badge" data-i18n="v_badge">Video con IA</span>
+              <span class="card-title" data-i18n="v_title">Reels de producto hechos con IA</span>
+              <div class="card-foot">
+                <span class="card-meta" data-i18n="v_meta">Reels · Gemini (Veo) · Edición</span>
                 <span class="card-go" aria-hidden="true"><i data-lucide="chevron-right"></i></span>
               </div>
             </div>
@@ -755,11 +769,11 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
     <header class="case-hero">
       <p class="label" data-i18n="g_eyebrow">Diseño gráfico · NOVOCENTRO · 2026</p>
       <h1 class="display" data-i18n="g_title">Piezas para redes de NOVOCENTRO</h1>
-      <p class="lead" style="margin-top:24px;color:var(--ink-soft)" data-i18n="g_desc">Una selección de posts, historias y reels que diseñé para la red de franquicias NOVOCENTRO: promociones de tableros, lanzamientos de color, fechas especiales y anuncios de locales.</p>
+      <p class="lead" style="margin-top:24px;color:var(--ink-soft)" data-i18n="g_desc">Una selección de posts e historias que diseñé para la red de franquicias NOVOCENTRO: promociones de tableros, lanzamientos de color, fechas especiales y anuncios de locales.</p>
       <dl class="case-meta">
         <div><dt data-i18n="c_m1t">Rol</dt><dd data-i18n="g_m1">Diseño gráfico y dirección de arte</dd></div>
         <div><dt data-i18n="c_m2t">Contexto</dt><dd data-i18n="g_m2">Prácticas en NOVOPAN, equipo de Marketing</dd></div>
-        <div><dt data-i18n="g_m3t">Formatos</dt><dd data-i18n="g_m3">Post 4:5 · Historia y Reel 9:16</dd></div>
+        <div><dt data-i18n="g_m3t">Formatos</dt><dd data-i18n="g_m3">Post 4:5 · Historia 9:16</dd></div>
         <div><dt data-i18n="c_m4t">Herramientas</dt><dd>Figma</dd></div>
       </dl>
     </header>
@@ -767,17 +781,11 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
       <button type="button" class="gf" data-f="all" aria-pressed="true" data-i18n="gf_all">Todo</button>
       <button type="button" class="gf" data-f="post" aria-pressed="false" data-i18n="gf_post">Posts</button>
       <button type="button" class="gf" data-f="historia" aria-pressed="false" data-i18n="gf_story">Historias</button>
-      <button type="button" class="gf" data-f="video" aria-pressed="false" data-i18n="gf_video">Videos</button>
     </div>
-    <div class="gmasonry" id="gmasonry">
+    <div class="gmasonry" id="gmasonry" data-gallery>
         <button type="button" class="gtile" data-kind="post" data-full="img/novocentro/pelikano-nevado.webp" aria-label="Promoción Pelíkano RH Nevado">
           <img src="img/novocentro/pelikano-nevado-sm.webp" width="540" height="675" loading="lazy" alt="Promoción Pelíkano RH Nevado">
           <span class="gtile-cap" data-i18n="gn_0">Promoción Pelíkano RH Nevado</span>
-        </button>
-        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/mamba.mp4" aria-label="Reel · Mamba">
-          <video src="vid/mamba.mp4" poster="vid/mamba-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
-          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
-          <span class="gtile-cap" data-i18n="gn_11">Reel · Mamba</span>
         </button>
         <button type="button" class="gtile" data-kind="historia" data-full="img/novocentro/arupo.webp" aria-label="Historia · color Arupo">
           <img src="img/novocentro/arupo-sm.webp" width="540" height="960" loading="lazy" alt="Historia · color Arupo">
@@ -791,11 +799,6 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
           <img src="img/novocentro/mamba-rh-sm.webp" width="540" height="675" loading="lazy" alt="Pelíkano RH · resistente a la humedad">
           <span class="gtile-cap" data-i18n="gn_3">Pelíkano RH · resistente a la humedad</span>
         </button>
-        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/arupo.mp4" aria-label="Reel · Arupo">
-          <video src="vid/arupo.mp4" poster="vid/arupo-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
-          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
-          <span class="gtile-cap" data-i18n="gn_12">Reel · Arupo</span>
-        </button>
         <button type="button" class="gtile" data-kind="historia" data-full="img/novocentro/mamba-promo.webp" aria-label="Historia · Promo Septiembre Mamba">
           <img src="img/novocentro/mamba-promo-sm.webp" width="540" height="960" loading="lazy" alt="Historia · Promo Septiembre Mamba">
           <span class="gtile-cap" data-i18n="gn_4">Historia · Promo Septiembre Mamba</span>
@@ -807,11 +810,6 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
         <button type="button" class="gtile" data-kind="post" data-full="img/novocentro/enchapados.webp" aria-label="Promoción tableros enchapados">
           <img src="img/novocentro/enchapados-sm.webp" width="540" height="675" loading="lazy" alt="Promoción tableros enchapados">
           <span class="gtile-cap" data-i18n="gn_6">Promoción tableros enchapados</span>
-        </button>
-        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/blanco-rh.mp4" aria-label="Reel · Pelíkano Blanco RH">
-          <video src="vid/blanco-rh.mp4" poster="vid/blanco-rh-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
-          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
-          <span class="gtile-cap" data-i18n="gn_13">Reel · Pelíkano Blanco RH</span>
         </button>
         <button type="button" class="gtile" data-kind="historia" data-full="img/novocentro/burdeos.webp" aria-label="Historia · color Burdeos">
           <img src="img/novocentro/burdeos-sm.webp" width="540" height="960" loading="lazy" alt="Historia · color Burdeos">
@@ -825,11 +823,6 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
           <img src="img/novocentro/guaguas-sm.webp" width="540" height="960" loading="lazy" alt="Historia · Día de los Difuntos">
           <span class="gtile-cap" data-i18n="gn_9">Historia · Día de los Difuntos</span>
         </button>
-        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/burdeos.mp4" aria-label="Reel · Burdeos">
-          <video src="vid/burdeos.mp4" poster="vid/burdeos-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
-          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
-          <span class="gtile-cap" data-i18n="gn_14">Reel · Burdeos</span>
-        </button>
         <button type="button" class="gtile" data-kind="post" data-full="img/novocentro/nos-mudamos.webp" aria-label="Anuncio de nuevo local">
           <img src="img/novocentro/nos-mudamos-sm.webp" width="540" height="720" loading="lazy" alt="Anuncio de nuevo local">
           <span class="gtile-cap" data-i18n="gn_10">Anuncio de nuevo local</span>
@@ -840,13 +833,66 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
       <span class="mono" data-i18n="c_more">más casos pronto</span>
     </div>
   </div>
-  <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Vista ampliada">
-    <button type="button" class="lb-btn lb-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
-    <button type="button" class="lb-btn lb-prev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
-    <figure class="lb-fig"><img id="lb-img" alt=""><video id="lb-vid" controls playsinline hidden></video><figcaption id="lb-cap"></figcaption></figure>
-    <button type="button" class="lb-btn lb-next" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
+</main>
+
+<main id="caso-ia" class="case" hidden>
+  <div class="wrap">
+    <a class="back" href="#trabajo"><i data-lucide="arrow-left"></i><span data-i18n="c_back">Volver a casos</span></a>
+    <header class="case-hero">
+      <p class="label" data-i18n="v_eyebrow">Video con IA · NOVOCENTRO · 2026</p>
+      <h1 class="display" data-i18n="v_title">Reels de producto hechos con IA</h1>
+      <p class="lead" style="margin-top:24px;color:var(--ink-soft)" data-i18n="v_desc">Reels de 10 segundos para Instagram que muestran colores y acabados de tableros en ambientes reales. Generé el video con IA a partir de renders de cada espacio y luego agregué en edición el nombre del color, el descuento y la marca.</p>
+      <dl class="case-meta">
+        <div><dt data-i18n="c_m1t">Rol</dt><dd data-i18n="v_m1">Dirección de arte, prompts y edición</dd></div>
+        <div><dt data-i18n="c_m2t">Contexto</dt><dd data-i18n="g_m2">Prácticas en NOVOPAN, equipo de Marketing</dd></div>
+        <div><dt data-i18n="g_m3t">Formatos</dt><dd data-i18n="v_m3">Reel 9:16 · 10 s</dd></div>
+        <div><dt data-i18n="c_m4t">Herramientas</dt><dd>Gemini (Veo) · Claude</dd></div>
+      </dl>
+    </header>
+    <div class="vgrid" data-gallery>
+        <button type="button" class="gtile gtile-vid vtile" data-video="vid/mamba.mp4" aria-label="Reel · Mamba">
+          <video src="vid/mamba.mp4" poster="vid/mamba-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_11">Reel · Mamba</span>
+        </button>
+        <button type="button" class="gtile gtile-vid vtile" data-video="vid/arupo.mp4" aria-label="Reel · Arupo">
+          <video src="vid/arupo.mp4" poster="vid/arupo-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_12">Reel · Arupo</span>
+        </button>
+        <button type="button" class="gtile gtile-vid vtile" data-video="vid/blanco-rh.mp4" aria-label="Reel · Pelíkano Blanco RH">
+          <video src="vid/blanco-rh.mp4" poster="vid/blanco-rh-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_13">Reel · Pelíkano Blanco RH</span>
+        </button>
+        <button type="button" class="gtile gtile-vid vtile" data-video="vid/burdeos.mp4" aria-label="Reel · Burdeos">
+          <video src="vid/burdeos.mp4" poster="vid/burdeos-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_14">Reel · Burdeos</span>
+        </button>
+    </div>
+    <section class="case-sec" style="border-top:1px solid var(--hair)">
+      <div><span class="mono">01</span><h2 data-i18n="v_s1">Cómo los hice</h2></div>
+      <ul class="case-list">
+        <li><strong data-i18n="v_p1t">Del render al video</strong><span data-i18n="v_p1">Cada video parte de un render del ambiente, el nombre del color y una foto real de la muestra con luz lateral, que fue clave para que la textura saliera fiel.</span></li>
+        <li><strong data-i18n="v_p2t">Fidelidad del material</strong><span data-i18n="v_p2">Ajusté los prompts para que la IA no confundiera el tablero con pintura o yeso, no cambiara el tono del color ni copiara la textura en espejos y vidrios.</span></li>
+        <li><strong data-i18n="v_p3t">Gancho y recorrido</strong><span data-i18n="v_p3">Un plano macro de la textura en el primer segundo, luego el recorrido por el espacio y un cierre con el ambiente completo.</span></li>
+        <li><strong data-i18n="v_p4t">Textos en edición</strong><span data-i18n="v_p4">El descuento, el nombre del color y la marca se agregan después, porque la IA deforma los textos y logos.</span></li>
+      </ul>
+    </section>
+    <div class="case-end">
+      <a class="back" href="#trabajo"><i data-lucide="arrow-left"></i><span data-i18n="c_back">Volver a casos</span></a>
+      <span class="mono" data-i18n="c_more">más casos pronto</span>
+    </div>
   </div>
 </main>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Vista ampliada">
+  <button type="button" class="lb-btn lb-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
+  <button type="button" class="lb-btn lb-prev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+  <figure class="lb-fig"><img id="lb-img" alt=""><video id="lb-vid" controls playsinline hidden></video><figcaption id="lb-cap"></figcaption></figure>
+  <button type="button" class="lb-btn lb-next" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
+</div>
 
 <footer>
   <div class="wrap">
@@ -896,11 +942,20 @@ var EN = {
   g6s:"05 · Compare", g6:"Each trail keeps its color across every chart, so it's recognizable at a glance.",
   g7s:"05 · Compare", g7:"Entry time and group size help plan staff and capacity.",
   g8s:"06 · Search", g8:"The visit detail can be sorted and searched. Names are hidden in this screenshot.",
-  g_badge:"Graphic design", g_title:"Social media pieces for NOVOCENTRO", g_meta:"Posts · Stories · Reels",
+  v_badge:"AI video", v_title:"Product reels made with AI", v_meta:"Reels · Gemini (Veo) · Editing",
+  v_eyebrow:"AI video · NOVOCENTRO · 2026",
+  v_desc:"10-second Instagram reels showing board colors and finishes in real spaces. I generated the video with AI from renders of each space, then added the color name, discount and brand in editing.",
+  v_m1:"Art direction, prompts and editing", v_m3:"9:16 reel · 10 s",
+  v_s1:"How I made them",
+  v_p1t:"From render to video", v_p1:"Each video starts from a render of the space, the color name and a real photo of the sample under side light, which was key to a faithful texture.",
+  v_p2t:"Material fidelity", v_p2:"I tuned the prompts so the AI wouldn't mistake the board for paint or plaster, shift the color or copy the texture onto mirrors and glass.",
+  v_p3t:"Hook and walkthrough", v_p3:"A macro shot of the texture in the first second, then a walk through the space and a close on the full room.",
+  v_p4t:"Text in editing", v_p4:"The discount, color name and brand are added afterwards, because AI distorts text and logos.",
+  g_badge:"Graphic design", g_title:"Social media pieces for NOVOCENTRO", g_meta:"Posts · Stories · Promotions",
   g_eyebrow:"Graphic design · NOVOCENTRO · 2026",
-  g_desc:"A selection of posts, stories and reels I designed for the NOVOCENTRO franchise network: board promotions, color launches, special dates and store announcements.",
-  g_m1:"Graphic design and art direction", g_m2:"Internship at NOVOPAN, Marketing team", g_m3t:"Formats", g_m3:"4:5 post · 9:16 story and reel",
-  gf_all:"All", gf_post:"Posts", gf_story:"Stories", gf_video:"Videos",
+  g_desc:"A selection of posts and stories I designed for the NOVOCENTRO franchise network: board promotions, color launches, special dates and store announcements.",
+  g_m1:"Graphic design and art direction", g_m2:"Internship at NOVOPAN, Marketing team", g_m3t:"Formats", g_m3:"4:5 post · 9:16 story",
+  gf_all:"All", gf_post:"Posts", gf_story:"Stories",
   gn_11:"Reel · Mamba",
   gn_12:"Reel · Arupo",
   gn_13:"Reel · Pelíkano White RH",
@@ -995,7 +1050,7 @@ try { var saved = localStorage.getItem('oi-lang'); if (saved === 'en') setLang('
 var nav = document.getElementById('nav');
 var heroEl = document.getElementById('hero');
 var homeEl = document.getElementById('inicio');
-var CASES = { 'dashboard-senderos': document.getElementById('caso'), 'nitida': document.getElementById('caso-nitida'), 'novocentro': document.getElementById('caso-novocentro') };
+var CASES = { 'dashboard-senderos': document.getElementById('caso'), 'nitida': document.getElementById('caso-nitida'), 'novocentro': document.getElementById('caso-novocentro'), 'videos-ia': document.getElementById('caso-ia') };
 function route(){
   var h = location.hash.slice(1);
   var isCase = Object.prototype.hasOwnProperty.call(CASES, h);
@@ -1120,24 +1175,26 @@ if ('IntersectionObserver' in window) {
 })();
 
 (function(){
-  var grid=document.getElementById('gmasonry'); if(!grid) return;
-  var tiles=[].slice.call(grid.querySelectorAll('.gtile')), lb=document.getElementById('lb'), img=document.getElementById('lb-img'), cap=document.getElementById('lb-cap'), cur=0, last=null;
+  var lb=document.getElementById('lb'); if(!lb) return;
+  var img=document.getElementById('lb-img'), cap=document.getElementById('lb-cap'), vid=document.getElementById('lb-vid'), cur=0, last=null, set=[];
   document.querySelectorAll('.gf').forEach(function(b){ b.addEventListener('click',function(){
     var f=b.dataset.f; document.querySelectorAll('.gf').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
-    tiles.forEach(function(t){ t.hidden = !(f==='all' || t.dataset.kind===f); });
+    document.querySelectorAll('#gmasonry .gtile').forEach(function(t){ t.hidden = !(f==='all' || t.dataset.kind===f); });
   });});
-  function vis(){ return tiles.filter(function(t){return !t.hidden;}); }
-  var vid=document.getElementById('lb-vid');
-  function show(t){ cur=vis().indexOf(t); cap.textContent=t.querySelector('.gtile-cap').textContent;
+  function show(t){ cur=set.indexOf(t); cap.textContent=t.querySelector('.gtile-cap').textContent;
     if(t.dataset.video){ img.hidden=true; img.removeAttribute('src'); vid.hidden=false; vid.src=t.dataset.video; vid.muted=false; try{ var pr=vid.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){} }
     else { try{vid.pause();}catch(e){} vid.hidden=true; vid.removeAttribute('src'); img.hidden=false; img.src=t.dataset.full; img.alt=t.querySelector('img').alt; } }
-  tiles.forEach(function(t){ var v=t.querySelector('video'); if(!v) return;
-    t.addEventListener('mouseenter',function(){ try{ v.preload='auto'; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){} });
-    t.addEventListener('mouseleave',function(){ try{ v.pause(); v.currentTime=0; }catch(e){} }); });
-  function open(t){ last=t; show(t); lb.hidden=false; document.body.style.overflow='hidden'; lb.querySelector('.lb-close').focus(); }
+  function open(t,box){ last=t; set=[].slice.call(box.querySelectorAll('.gtile')).filter(function(x){return !x.hidden;}); show(t); lb.hidden=false; document.body.style.overflow='hidden'; lb.querySelector('.lb-close').focus(); }
   function close(){ try{vid.pause();}catch(e){} lb.hidden=true; document.body.style.overflow=''; if(last) last.focus(); }
-  function step(d){ var v=vis(); cur=(cur+d+v.length)%v.length; show(v[cur]); }
-  tiles.forEach(function(t){ t.addEventListener('click',function(){open(t);}); });
+  function step(d){ cur=(cur+d+set.length)%set.length; show(set[cur]); }
+  document.querySelectorAll('[data-gallery]').forEach(function(box){
+    box.querySelectorAll('.gtile').forEach(function(t){
+      t.addEventListener('click',function(){open(t,box);});
+      var v=t.querySelector('video'); if(!v) return;
+      t.addEventListener('mouseenter',function(){ try{ v.preload='auto'; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){} });
+      t.addEventListener('mouseleave',function(){ try{ v.pause(); v.currentTime=0; }catch(e){} });
+    });
+  });
   lb.querySelector('.lb-close').addEventListener('click',close);
   lb.querySelector('.lb-prev').addEventListener('click',function(){step(-1);});
   lb.querySelector('.lb-next').addEventListener('click',function(){step(1);});
