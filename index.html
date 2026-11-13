@@ -237,6 +237,12 @@ a.card:hover .card-go{background:#DCDCE0}
 .lb-btn svg{width:22px;height:22px}
 .lb-close{position:absolute;top:20px;right:20px}
 @media (max-width:560px){.lb-prev,.lb-next{position:absolute;bottom:24px}.lb-prev{left:calc(50% - 60px)}.lb-next{right:calc(50% - 60px)}.lb-fig img{max-height:calc(100vh - 180px);max-width:92vw}.gmasonry{columns:2 150px;column-gap:12px}.gtile{margin-bottom:12px;border-radius:14px}}
+.gtile-vid video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:#111}
+.gtile-play{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;background:rgba(10,10,10,0.55);color:#fff;display:flex;align-items:center;justify-content:center;transition:opacity 200ms var(--ease)}
+.gtile-play svg{width:18px;height:18px;fill:#fff}
+.gtile-vid:hover .gtile-play{opacity:0}
+.lb-fig video{max-height:calc(100vh - 110px);max-width:min(80vw,900px);border-radius:16px;background:#000}
+.lb-fig video[hidden],.lb-fig img[hidden]{display:none}
 .case-end{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:48px 0 96px}
 .slot{aspect-ratio:4/5;border:1px solid var(--hair);display:flex;flex-direction:column;justify-content:space-between;padding:20px}
 .slot-mark{font-family:var(--f-display);font-weight:600;font-size:44px;letter-spacing:-0.05em;color:var(--hair);line-height:1}
@@ -420,7 +426,7 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
               <span class="card-badge" data-i18n="g_badge">Diseño gráfico</span>
               <span class="card-title" data-i18n="g_title">Piezas para redes de NOVOCENTRO</span>
               <div class="card-foot">
-                <span class="card-meta" data-i18n="g_meta">Posts · Historias · Promociones</span>
+                <span class="card-meta" data-i18n="g_meta">Posts · Historias · Reels</span>
                 <span class="card-go" aria-hidden="true"><i data-lucide="chevron-right"></i></span>
               </div>
             </div>
@@ -749,11 +755,11 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
     <header class="case-hero">
       <p class="label" data-i18n="g_eyebrow">Diseño gráfico · NOVOCENTRO · 2026</p>
       <h1 class="display" data-i18n="g_title">Piezas para redes de NOVOCENTRO</h1>
-      <p class="lead" style="margin-top:24px;color:var(--ink-soft)" data-i18n="g_desc">Una selección de posts e historias que diseñé para la red de franquicias NOVOCENTRO: promociones de tableros, lanzamientos de color, fechas especiales y anuncios de locales.</p>
+      <p class="lead" style="margin-top:24px;color:var(--ink-soft)" data-i18n="g_desc">Una selección de posts, historias y reels que diseñé para la red de franquicias NOVOCENTRO: promociones de tableros, lanzamientos de color, fechas especiales y anuncios de locales.</p>
       <dl class="case-meta">
         <div><dt data-i18n="c_m1t">Rol</dt><dd data-i18n="g_m1">Diseño gráfico y dirección de arte</dd></div>
         <div><dt data-i18n="c_m2t">Contexto</dt><dd data-i18n="g_m2">Prácticas en NOVOPAN, equipo de Marketing</dd></div>
-        <div><dt data-i18n="g_m3t">Formatos</dt><dd data-i18n="g_m3">Post 4:5 · Historia 9:16</dd></div>
+        <div><dt data-i18n="g_m3t">Formatos</dt><dd data-i18n="g_m3">Post 4:5 · Historia y Reel 9:16</dd></div>
         <div><dt data-i18n="c_m4t">Herramientas</dt><dd>Figma</dd></div>
       </dl>
     </header>
@@ -761,11 +767,17 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
       <button type="button" class="gf" data-f="all" aria-pressed="true" data-i18n="gf_all">Todo</button>
       <button type="button" class="gf" data-f="post" aria-pressed="false" data-i18n="gf_post">Posts</button>
       <button type="button" class="gf" data-f="historia" aria-pressed="false" data-i18n="gf_story">Historias</button>
+      <button type="button" class="gf" data-f="video" aria-pressed="false" data-i18n="gf_video">Videos</button>
     </div>
     <div class="gmasonry" id="gmasonry">
         <button type="button" class="gtile" data-kind="post" data-full="img/novocentro/pelikano-nevado.webp" aria-label="Promoción Pelíkano RH Nevado">
           <img src="img/novocentro/pelikano-nevado-sm.webp" width="540" height="675" loading="lazy" alt="Promoción Pelíkano RH Nevado">
           <span class="gtile-cap" data-i18n="gn_0">Promoción Pelíkano RH Nevado</span>
+        </button>
+        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/mamba.mp4" aria-label="Reel · Mamba">
+          <video src="vid/mamba.mp4" poster="vid/mamba-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_11">Reel · Mamba</span>
         </button>
         <button type="button" class="gtile" data-kind="historia" data-full="img/novocentro/arupo.webp" aria-label="Historia · color Arupo">
           <img src="img/novocentro/arupo-sm.webp" width="540" height="960" loading="lazy" alt="Historia · color Arupo">
@@ -779,6 +791,11 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
           <img src="img/novocentro/mamba-rh-sm.webp" width="540" height="675" loading="lazy" alt="Pelíkano RH · resistente a la humedad">
           <span class="gtile-cap" data-i18n="gn_3">Pelíkano RH · resistente a la humedad</span>
         </button>
+        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/arupo.mp4" aria-label="Reel · Arupo">
+          <video src="vid/arupo.mp4" poster="vid/arupo-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_12">Reel · Arupo</span>
+        </button>
         <button type="button" class="gtile" data-kind="historia" data-full="img/novocentro/mamba-promo.webp" aria-label="Historia · Promo Septiembre Mamba">
           <img src="img/novocentro/mamba-promo-sm.webp" width="540" height="960" loading="lazy" alt="Historia · Promo Septiembre Mamba">
           <span class="gtile-cap" data-i18n="gn_4">Historia · Promo Septiembre Mamba</span>
@@ -791,6 +808,11 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
           <img src="img/novocentro/enchapados-sm.webp" width="540" height="675" loading="lazy" alt="Promoción tableros enchapados">
           <span class="gtile-cap" data-i18n="gn_6">Promoción tableros enchapados</span>
         </button>
+        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/blanco-rh.mp4" aria-label="Reel · Pelíkano Blanco RH">
+          <video src="vid/blanco-rh.mp4" poster="vid/blanco-rh-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_13">Reel · Pelíkano Blanco RH</span>
+        </button>
         <button type="button" class="gtile" data-kind="historia" data-full="img/novocentro/burdeos.webp" aria-label="Historia · color Burdeos">
           <img src="img/novocentro/burdeos-sm.webp" width="540" height="960" loading="lazy" alt="Historia · color Burdeos">
           <span class="gtile-cap" data-i18n="gn_7">Historia · color Burdeos</span>
@@ -802,6 +824,11 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
         <button type="button" class="gtile" data-kind="historia" data-full="img/novocentro/guaguas.webp" aria-label="Historia · Día de los Difuntos">
           <img src="img/novocentro/guaguas-sm.webp" width="540" height="960" loading="lazy" alt="Historia · Día de los Difuntos">
           <span class="gtile-cap" data-i18n="gn_9">Historia · Día de los Difuntos</span>
+        </button>
+        <button type="button" class="gtile gtile-vid" data-kind="video" data-video="vid/burdeos.mp4" aria-label="Reel · Burdeos">
+          <video src="vid/burdeos.mp4" poster="vid/burdeos-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_14">Reel · Burdeos</span>
         </button>
         <button type="button" class="gtile" data-kind="post" data-full="img/novocentro/nos-mudamos.webp" aria-label="Anuncio de nuevo local">
           <img src="img/novocentro/nos-mudamos-sm.webp" width="540" height="720" loading="lazy" alt="Anuncio de nuevo local">
@@ -816,7 +843,7 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
   <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Vista ampliada">
     <button type="button" class="lb-btn lb-close" aria-label="Cerrar"><i data-lucide="x"></i></button>
     <button type="button" class="lb-btn lb-prev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
-    <figure class="lb-fig"><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+    <figure class="lb-fig"><img id="lb-img" alt=""><video id="lb-vid" controls playsinline hidden></video><figcaption id="lb-cap"></figcaption></figure>
     <button type="button" class="lb-btn lb-next" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
   </div>
 </main>
@@ -869,11 +896,16 @@ var EN = {
   g6s:"05 · Compare", g6:"Each trail keeps its color across every chart, so it's recognizable at a glance.",
   g7s:"05 · Compare", g7:"Entry time and group size help plan staff and capacity.",
   g8s:"06 · Search", g8:"The visit detail can be sorted and searched. Names are hidden in this screenshot.",
-  g_badge:"Graphic design", g_title:"Social media pieces for NOVOCENTRO", g_meta:"Posts · Stories · Promotions",
+  g_badge:"Graphic design", g_title:"Social media pieces for NOVOCENTRO", g_meta:"Posts · Stories · Reels",
   g_eyebrow:"Graphic design · NOVOCENTRO · 2026",
-  g_desc:"A selection of posts and stories I designed for the NOVOCENTRO franchise network: board promotions, color launches, special dates and store announcements.",
-  g_m1:"Graphic design and art direction", g_m2:"Internship at NOVOPAN, Marketing team", g_m3t:"Formats", g_m3:"4:5 post · 9:16 story",
-  gf_all:"All", gf_post:"Posts", gf_story:"Stories",
+  g_desc:"A selection of posts, stories and reels I designed for the NOVOCENTRO franchise network: board promotions, color launches, special dates and store announcements.",
+  g_m1:"Graphic design and art direction", g_m2:"Internship at NOVOPAN, Marketing team", g_m3t:"Formats", g_m3:"4:5 post · 9:16 story and reel",
+  gf_all:"All", gf_post:"Posts", gf_story:"Stories", gf_video:"Videos",
+  gn_11:"Reel · Mamba",
+  gn_12:"Reel · Arupo",
+  gn_13:"Reel · Pelíkano White RH",
+  gn_14:"Reel · Burdeos",
+
   gn_0:"Seasonal promo, Pelíkano RH Nevado",
   gn_1:"Story · Arupo color",
   gn_2:"MDF 3–9 mm promo",
@@ -1095,9 +1127,15 @@ if ('IntersectionObserver' in window) {
     tiles.forEach(function(t){ t.hidden = !(f==='all' || t.dataset.kind===f); });
   });});
   function vis(){ return tiles.filter(function(t){return !t.hidden;}); }
-  function show(t){ cur=vis().indexOf(t); img.src=t.dataset.full; img.alt=t.querySelector('img').alt; cap.textContent=t.querySelector('.gtile-cap').textContent; }
+  var vid=document.getElementById('lb-vid');
+  function show(t){ cur=vis().indexOf(t); cap.textContent=t.querySelector('.gtile-cap').textContent;
+    if(t.dataset.video){ img.hidden=true; img.removeAttribute('src'); vid.hidden=false; vid.src=t.dataset.video; vid.muted=false; try{ var pr=vid.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){} }
+    else { try{vid.pause();}catch(e){} vid.hidden=true; vid.removeAttribute('src'); img.hidden=false; img.src=t.dataset.full; img.alt=t.querySelector('img').alt; } }
+  tiles.forEach(function(t){ var v=t.querySelector('video'); if(!v) return;
+    t.addEventListener('mouseenter',function(){ try{ v.preload='auto'; var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }catch(e){} });
+    t.addEventListener('mouseleave',function(){ try{ v.pause(); v.currentTime=0; }catch(e){} }); });
   function open(t){ last=t; show(t); lb.hidden=false; document.body.style.overflow='hidden'; lb.querySelector('.lb-close').focus(); }
-  function close(){ lb.hidden=true; document.body.style.overflow=''; if(last) last.focus(); }
+  function close(){ try{vid.pause();}catch(e){} lb.hidden=true; document.body.style.overflow=''; if(last) last.focus(); }
   function step(d){ var v=vis(); cur=(cur+d+v.length)%v.length; show(v[cur]); }
   tiles.forEach(function(t){ t.addEventListener('click',function(){open(t);}); });
   lb.querySelector('.lb-close').addEventListener('click',close);
