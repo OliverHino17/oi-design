@@ -486,6 +486,7 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
       </div>
       <div class="hero-cta reveal">
         <a class="btn glass glass-primary" href="https://www.linkedin.com/in/oiproductdesigner" target="_blank" rel="noopener"><span data-i18n="cta_linkedin">Escríbeme por LinkedIn</span><i data-lucide="arrow-up-right"></i></a>
+        <a class="btn glass pdf-link" href="pdf/Oliver-Hinojosa-Portafolio-UXUI-ES.pdf" data-es="pdf/Oliver-Hinojosa-Portafolio-UXUI-ES.pdf" data-en="pdf/Oliver-Hinojosa-UXUI-Portfolio-EN.pdf" target="_blank" rel="noopener" download><span data-i18n="cta_pdf">Descargar portafolio (PDF)</span><i data-lucide="download"></i></a>
       </div>
       <div class="handles reveal">
         <span class="mono">oliverproductdesginerandco@gmail.com</span>
@@ -1020,7 +1021,7 @@ var EN = {
   ab_p2:"Today I focus on UX/UI and I'm finishing a Master's in UX Design at UNIR. I work in Figma, from research to the design system.",
   f1_t:"Education", f1_d:"Product Design, UDLA", f2_t:"Postgraduate", f2_d:"Master's in UX Design, UNIR",
   f3_t:"Now", f3_d:"Marketing Design, Novopan del Ecuador", f4_t:"Languages", f4_d:"Spanish and English",
-  ct_mail:"Email", ct_copy:"Copy email",
+  ct_mail:"Email", ct_copy:"Copy email", cta_pdf:"Download portfolio (PDF)",
   ct_eyebrow:"Contact", ct_title:"Have a digital product that needs to be easier to use?",
   ct_lead:"Tell me what you're building. I reply within one or two business days.",
 };
@@ -1033,6 +1034,7 @@ function setLang(lang){
   document.querySelectorAll('[data-i18n]').forEach(function(el){ var k = el.dataset.i18n; if (d[k] != null) el.textContent = d[k]; });
   document.querySelectorAll('[data-i18n-html]').forEach(function(el){ var k = el.dataset.i18nHtml; if (d[k] != null) el.innerHTML = d[k]; });
   document.documentElement.lang = lang;
+  document.querySelectorAll('.pdf-link').forEach(function(a){ a.setAttribute('href', a.dataset[lang] || a.dataset.es); });
   document.title = lang === 'en' ? 'Oliver Hinojosa · UX/UI designer' : 'Oliver Hinojosa · Diseñador UX/UI';
   document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
   try { localStorage.setItem('oi-lang', lang); } catch(e) {}
