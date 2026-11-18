@@ -119,13 +119,30 @@ section{padding:clamp(72px,10vw,128px) 0}
 .sec-head .lead{color:var(--ink-soft)}
 
 /* services */
-.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--hair)}
-.svc{padding:32px 32px 40px 0;border-right:1px solid var(--hair);display:flex;flex-direction:column;gap:16px}
-.svc+.svc{padding-left:32px}
-.svc:last-child{border-right:0;padding-right:0}
-.svc h3{font-family:var(--f-display);font-weight:400;font-size:19px;letter-spacing:-0.03em;line-height:1.25;margin:0}
-.svc ul{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:6px}
-.svc li{font-family:var(--f-mono);font-size:12px;color:var(--ink-soft)}
+.services{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.svc{position:relative;overflow:hidden;background:#fff;border:1px solid var(--hair);border-radius:24px;padding:28px 28px 32px;display:flex;flex-direction:column;gap:14px;outline:none;
+  transition:transform 450ms cubic-bezier(0.34,1.56,0.64,1),box-shadow 300ms var(--ease),border-color 300ms var(--ease)}
+.svc::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform 500ms var(--ease)}
+.svc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.svc-ic{width:52px;height:52px;border-radius:16px;background:var(--tint);color:var(--ink);display:flex;align-items:center;justify-content:center;transition:background 300ms var(--ease),transform 450ms cubic-bezier(0.34,1.56,0.64,1)}
+.svc-ic svg{width:24px;height:24px;stroke-width:1.75;transition:transform 600ms cubic-bezier(0.34,1.56,0.64,1)}
+.svc-n{padding:4px 10px;border-radius:999px;border:1px solid var(--hair);transition:background 300ms var(--ease),color 300ms var(--ease),border-color 300ms var(--ease)}
+.svc h3{font-family:var(--f-display);font-weight:400;font-size:19px;letter-spacing:-0.03em;line-height:1.25;margin:0;transition:transform 400ms var(--ease)}
+.svc ul{list-style:none;padding:12px 0 0;margin:auto 0 0;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--hair)}
+.svc li{position:relative;padding-left:0;font-family:var(--f-mono);font-size:12px;color:var(--ink-soft);transition:padding-left 350ms var(--ease),color 300ms var(--ease)}
+.svc li::before{content:"";position:absolute;left:0;top:50%;width:0;height:2px;margin-top:-1px;background:var(--lime-ink);border-radius:2px;transition:width 350ms var(--ease)}
+.svc:is(:hover,:focus-visible,.is-on){transform:translateY(-6px);border-color:transparent;box-shadow:0 2px 6px rgba(11,11,12,0.04),0 22px 48px rgba(11,11,12,0.10)}
+.svc:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.svc:is(:hover,:focus-visible,.is-on)::before{transform:scaleX(1)}
+.svc:is(:hover,:focus-visible,.is-on) .svc-ic{background:var(--lime);transform:rotate(-6deg) scale(1.06)}
+.svc:is(:hover,:focus-visible,.is-on) .svc-ic svg{transform:rotate(6deg) scale(1.08)}
+.svc:is(:hover,:focus-visible,.is-on) .svc-n{background:var(--ink);color:var(--lime);border-color:var(--ink)}
+.svc:is(:hover,:focus-visible,.is-on) h3{transform:translateX(4px)}
+.svc:is(:hover,:focus-visible,.is-on) li{padding-left:18px;color:var(--ink)}
+.svc:is(:hover,:focus-visible,.is-on) li::before{width:10px}
+.svc li:nth-child(2),.svc li:nth-child(2)::before{transition-delay:50ms}
+.svc li:nth-child(3),.svc li:nth-child(3)::before{transition-delay:100ms}
+.svc li:nth-child(4),.svc li:nth-child(4)::before{transition-delay:150ms}
 
 
 /* process */
@@ -291,6 +308,37 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-ite
 footer .logo{color:var(--paper);font-size:18px}
 footer a{color:var(--cream);border-bottom:1px solid currentColor}
 
+
+/* micro-interactions */
+.nav-links a{position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform 300ms var(--ease)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.btn svg{transition:transform 300ms cubic-bezier(0.34,1.56,0.64,1)}
+.btn:hover svg[data-lucide="arrow-up-right"],.btn:hover .lucide-arrow-up-right{transform:translate(3px,-3px)}
+.btn:hover svg[data-lucide="arrow-down"],.btn:hover .lucide-arrow-down{transform:translateY(4px)}
+.btn:hover svg[data-lucide="download"],.btn:hover .lucide-download{transform:translateY(3px)}
+.card-img img,.card-img video{transition:transform 700ms var(--ease)}
+a.card:hover .card-img img,a.card:hover .card-img video{transform:scale(1.04)}
+.card-go svg{transition:transform 350ms cubic-bezier(0.34,1.56,0.64,1)}
+a.card:hover .card-go svg{transform:translateX(3px)}
+.card-badge{transition:transform 350ms cubic-bezier(0.34,1.56,0.64,1)}
+a.card:hover .card-badge{transform:scale(1.06) rotate(-2deg)}
+.stage .dot{position:relative}
+.stage .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--lime);animation:pulse 1.8s var(--ease) infinite}
+@keyframes pulse{from{transform:scale(.6);opacity:1}to{transform:scale(2.2);opacity:0}}
+.sec-head h2{position:relative;display:inline-block}
+.sec-head h2::after{content:"";position:absolute;left:0;bottom:-10px;height:6px;width:100%;border-radius:6px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform 800ms var(--ease) 250ms}
+.reveal.in .sec-head h2::after,.sec-head .reveal.in h2::after{transform:scaleX(1)}
+.hero h1 em{background:linear-gradient(90deg,var(--lime) 50%,#F4F4F0 50%);background-size:200% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;transition:background-position 1100ms var(--ease) 350ms}
+.hero h1.in em{background-position:0 0}
+.facts div{transition:background 250ms var(--ease),padding-left 300ms var(--ease)}
+.facts div:hover{padding-left:10px;background:linear-gradient(90deg,rgba(198,244,50,.25),transparent 70%)}
+@media (prefers-reduced-motion:reduce){
+  .svc,.svc *,.svc::before,.svc li::before,.btn svg,.card-img img,.card-img video,.card-go svg,.card-badge,.sec-head h2::after,.facts div{transition:none!important}
+  .stage .dot::after{animation:none;display:none}
+  .hero h1 em{transition:none;background-position:0 0}
+}
+
 /* motion */
 .reveal{opacity:0;transform:translateY(12px);transition:opacity 400ms var(--ease),transform 400ms var(--ease)}
 .reveal.in{opacity:1;transform:none}
@@ -301,7 +349,7 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
   .hero-foot,.sec-head,.statement .wrap,.about{grid-template-columns:1fr;gap:24px}
   .status{justify-self:start}
   .services{grid-template-columns:1fr}
-  .svc,.svc+.svc{padding:28px 0;border-right:0;border-bottom:1px solid var(--hair)}
+  .services{gap:14px}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:40px}
   .case-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
   .case-sec{grid-template-columns:1fr;gap:16px;padding:48px 0}
@@ -372,20 +420,20 @@ footer a{color:var(--cream);border-bottom:1px solid currentColor}
         </div>
       </div>
       <div class="services">
-        <article class="svc reveal">
-          <span class="mono">01</span>
+        <article class="svc reveal" tabindex="0">
+          <div class="svc-top"><span class="svc-ic" aria-hidden="true"><i data-lucide="search"></i></span><span class="mono svc-n">01</span></div>
           <h3 data-i18n="svc1_t">Investigación UX</h3>
           <p class="body-s" data-i18n="svc1_d">Entrevistas, pruebas de usabilidad y análisis para decidir con datos y no con suposiciones.</p>
           <ul><li data-i18n="svc1_l1">entrevistas con usuarios</li><li data-i18n="svc1_l2">pruebas de usabilidad</li><li data-i18n="svc1_l3">journey maps</li><li data-i18n="svc1_l4">benchmarking</li></ul>
         </article>
-        <article class="svc reveal">
-          <span class="mono">02</span>
+        <article class="svc reveal" tabindex="0">
+          <div class="svc-top"><span class="svc-ic" aria-hidden="true"><i data-lucide="layout-panel-top"></i></span><span class="mono svc-n">02</span></div>
           <h3 data-i18n="svc2_t">Diseño de interfaces</h3>
           <p class="body-s" data-i18n="svc2_d">Apps y sitios web, desde los wireframes hasta la interfaz final y el prototipo navegable.</p>
           <ul><li data-i18n="svc2_l1">arquitectura de información</li><li data-i18n="svc2_l2">wireframes</li><li data-i18n="svc2_l3">ui web y móvil</li><li data-i18n="svc2_l4">prototipos en figma</li></ul>
         </article>
-        <article class="svc reveal">
-          <span class="mono">03</span>
+        <article class="svc reveal" tabindex="0">
+          <div class="svc-top"><span class="svc-ic" aria-hidden="true"><i data-lucide="component"></i></span><span class="mono svc-n">03</span></div>
           <h3 data-i18n="svc3_t">Design systems</h3>
           <p class="body-s" data-i18n="svc3_d">Componentes, tokens y documentación para que el producto crezca ordenado y se desarrolle más rápido.</p>
           <ul><li data-i18n="svc3_l1">componentes y variantes</li><li data-i18n="svc3_l2">tokens de diseño</li><li data-i18n="svc3_l3">documentación</li><li data-i18n="svc3_l4">handoff a desarrollo</li></ul>
@@ -1192,6 +1240,16 @@ if ('IntersectionObserver' in window) {
     var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) play(e.target); else { try{e.target.pause();}catch(x){} } }); },{threshold:0.2});
     vids.forEach(function(v){ io.observe(v); });
   } else vids.forEach(play);
+})();
+
+(function(){
+  ['.services .svc'].forEach(function(sel){
+    document.querySelectorAll(sel).forEach(function(el,i){ el.style.transitionDelay = (i*90)+'ms'; el.addEventListener('transitionend',function f(e){ if(e.propertyName==='opacity'){ el.style.transitionDelay=''; el.removeEventListener('transitionend',f); } }); });
+  });
+  var touch = window.matchMedia && matchMedia('(hover: none)').matches;
+  if(!touch || !('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ e.target.classList.toggle('is-on', e.isIntersecting); }); },{rootMargin:'-42% 0px -42% 0px'});
+  document.querySelectorAll('.services .svc').forEach(function(el){ io.observe(el); });
 })();
 try { if (window.lucide) lucide.createIcons({attrs:{'stroke-width':1.5}}); } catch(e) {}
 </script>
