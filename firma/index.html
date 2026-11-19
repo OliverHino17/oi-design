@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Firma de correo · Oi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Unbounded:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#F4F4F0;--ink:#0B0B0C;--lime:#C6F432;--soft:#5E5E59;--hair:#E3E3DD}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,system-ui,sans-serif;padding:48px 20px 80px}
+  .wrap{max-width:720px;margin:0 auto}
+  h1{font-family:Unbounded,sans-serif;font-weight:600;font-size:28px;letter-spacing:-.02em;margin:0 0 8px}
+  p.lead{color:var(--soft);margin:0 0 32px;line-height:1.5}
+  .tabs{display:flex;gap:8px;margin-bottom:16px}
+  .tabs button{font:600 14px Manrope,sans-serif;border:1px solid var(--hair);background:#fff;color:var(--ink);padding:8px 16px;border-radius:999px;cursor:pointer}
+  .tabs button[aria-pressed="true"]{background:var(--ink);color:var(--lime);border-color:var(--ink)}
+  .card{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:32px;overflow-x:auto}
+  .sig[hidden]{display:none}
+  .actions{display:flex;gap:12px;align-items:center;margin:20px 0 40px;flex-wrap:wrap}
+  .copy{font:700 15px Manrope,sans-serif;background:var(--lime);color:var(--ink);border:0;padding:14px 24px;border-radius:999px;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+  .copy:hover{transform:scale(1.05)}
+  .ok{color:var(--soft);font-size:14px;opacity:0;transition:opacity .2s}
+  .ok.on{opacity:1}
+  ol{padding-left:20px;line-height:1.8;color:var(--ink)}
+  ol li::marker{font-weight:700}
+  .tip{color:var(--soft);font-size:14px;line-height:1.6;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Firma de correo</h1>
+  <p class="lead">Copia la firma y pégala en Gmail. Los enlaces y el logo quedan funcionando.</p>
+
+  <div class="tabs" role="group">
+    <button type="button" data-lang="es" aria-pressed="true">Español</button>
+    <button type="button" data-lang="en" aria-pressed="false">English</button>
+  </div>
+
+  <div class="card">
+<!-- FIRMA ES -->
+<div class="sig" id="sig-es">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#0B0B0C;">
+  <tr>
+    <td valign="top" width="90" style="padding:0 18px 0 0;width:72px;">
+      <a href="https://oi-design.vercel.app" style="text-decoration:none;"><img src="https://oi-design.vercel.app/firma/oi-logo.png" width="72" height="72" alt="Oi" style="display:block;width:72px;height:72px;border:0;"></a>
+    </td>
+    <td valign="top" style="padding:0 0 0 18px;border-left:3px solid #C6F432;">
+      <div style="font-size:17px;line-height:22px;font-weight:bold;color:#0B0B0C;margin:0;">Oliver Hinojosa</div>
+      <div style="font-size:13px;line-height:20px;color:#4D6B00;font-weight:bold;margin:0 0 10px;">Diseñador UX/UI &middot; Freelance</div>
+      <div style="font-size:13px;line-height:20px;color:#0B0B0C;margin:0;">
+        <a href="mailto:oliverthedesigner.oi@gmail.com" style="color:#0B0B0C;text-decoration:none;">oliverthedesigner.oi@gmail.com</a>
+      </div>
+      <div style="font-size:13px;line-height:20px;color:#0B0B0C;margin:0;">
+        <a href="https://oi-design.vercel.app" style="color:#0B0B0C;text-decoration:none;font-weight:bold;">oi-design.vercel.app</a>
+        <span style="color:#B9B9B2;">&nbsp;|&nbsp;</span>
+        <a href="https://www.linkedin.com/in/oiproductdesigner" style="color:#0B0B0C;text-decoration:none;">LinkedIn</a>
+      </div>
+      <div style="font-size:12px;line-height:20px;color:#5E5E59;margin:0;">Quito, Ecuador &middot; trabajo remoto</div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding:14px 0 0 0;">
+      <img src="https://oi-design.vercel.app/firma/ioioi.png" width="420" height="12" alt="" style="display:block;width:420px;height:12px;border:0;">
+    </td>
+  </tr>
+</table>
+</div>
+<!-- FIRMA EN -->
+<div class="sig" id="sig-en" hidden>
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;color:#0B0B0C;">
+  <tr>
+    <td valign="top" width="90" style="padding:0 18px 0 0;width:72px;">
+      <a href="https://oi-design.vercel.app" style="text-decoration:none;"><img src="https://oi-design.vercel.app/firma/oi-logo.png" width="72" height="72" alt="Oi" style="display:block;width:72px;height:72px;border:0;"></a>
+    </td>
+    <td valign="top" style="padding:0 0 0 18px;border-left:3px solid #C6F432;">
+      <div style="font-size:17px;line-height:22px;font-weight:bold;color:#0B0B0C;margin:0;">Oliver Hinojosa</div>
+      <div style="font-size:13px;line-height:20px;color:#4D6B00;font-weight:bold;margin:0 0 10px;">UX/UI Designer &middot; Freelance</div>
+      <div style="font-size:13px;line-height:20px;color:#0B0B0C;margin:0;">
+        <a href="mailto:oliverthedesigner.oi@gmail.com" style="color:#0B0B0C;text-decoration:none;">oliverthedesigner.oi@gmail.com</a>
+      </div>
+      <div style="font-size:13px;line-height:20px;color:#0B0B0C;margin:0;">
+        <a href="https://oi-design.vercel.app" style="color:#0B0B0C;text-decoration:none;font-weight:bold;">oi-design.vercel.app</a>
+        <span style="color:#B9B9B2;">&nbsp;|&nbsp;</span>
+        <a href="https://www.linkedin.com/in/oiproductdesigner" style="color:#0B0B0C;text-decoration:none;">LinkedIn</a>
+      </div>
+      <div style="font-size:12px;line-height:20px;color:#5E5E59;margin:0;">Quito, Ecuador &middot; working remotely</div>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" style="padding:14px 0 0 0;">
+      <img src="https://oi-design.vercel.app/firma/ioioi.png" width="420" height="12" alt="" style="display:block;width:420px;height:12px;border:0;">
+    </td>
+  </tr>
+</table>
+</div>
+  </div>
+
+  <div class="actions">
+    <button class="copy" type="button" id="copy">Copiar firma</button>
+    <span class="ok" id="ok">Copiada. Ahora pégala en Gmail.</span>
+  </div>
+
+  <h2 style="font:600 18px Unbounded,sans-serif;margin:0 0 8px">Cómo ponerla en Gmail</h2>
+  <ol>
+    <li>Abre Gmail en la computadora y entra al engranaje → <b>Ver todos los ajustes</b>.</li>
+    <li>En la pestaña <b>General</b> baja hasta <b>Firma</b> y toca <b>Crear nueva</b>.</li>
+    <li>Pega con <b>Ctrl + V</b> (o <b>Cmd + V</b> en Mac).</li>
+    <li>Elígela como firma por defecto para correos nuevos y respuestas.</li>
+    <li>Baja hasta el final y guarda los cambios.</li>
+  </ol>
+  <p class="tip">En el celular la app de Gmail solo acepta texto, así que la firma con diseño se ve en los correos que mandas desde la computadora.</p>
+</div>
+
+<script>
+  let lang = 'es';
+  const tabs = document.querySelectorAll('.tabs button');
+  tabs.forEach(b => b.addEventListener('click', () => {
+    lang = b.dataset.lang;
+    tabs.forEach(t => t.setAttribute('aria-pressed', t === b));
+    document.getElementById('sig-es').hidden = lang !== 'es';
+    document.getElementById('sig-en').hidden = lang !== 'en';
+  }));
+  document.getElementById('copy').addEventListener('click', async () => {
+    const el = document.getElementById('sig-' + lang);
+    const html = el.innerHTML;
+    let done = false;
+    try {
+      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        await navigator.clipboard.write([new ClipboardItem({
+          'text/html': new Blob([html], {type: 'text/html'}),
+          'text/plain': new Blob([el.innerText], {type: 'text/plain'})
+        })]);
+        done = true;
+      }
+    } catch (e) {}
+    if (!done) {
+      const r = document.createRange(); r.selectNodeContents(el);
+      const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      try { done = document.execCommand('copy'); } catch (e) {}
+      s.removeAllRanges();
+    }
+    const ok = document.getElementById('ok');
+    ok.textContent = done ? 'Copiada. Ahora pégala en Gmail.' : 'Selecciónala con el mouse y copia con Ctrl + C.';
+    ok.classList.add('on'); setTimeout(() => ok.classList.remove('on'), 3500);
+  });
+</script>
+</body>
+</html>
