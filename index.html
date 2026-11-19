@@ -262,7 +262,8 @@ a.card:hover .card-go{background:var(--lime);color:var(--lime-ink)}
 .gtile-vid:hover .gtile-play{opacity:0}
 .lb-fig video{max-height:calc(100vh - 110px);max-width:min(80vw,900px);border-radius:16px;background:#000}
 .lb-fig video[hidden],.lb-fig img[hidden]{display:none}
-.vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-bottom:64px}
+.vgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding-bottom:64px}
+@media (max-width:1180px){.vgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .vgrid .gtile{margin:0}
 @media (max-width:960px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
 .card-img-video video{display:block;width:100%;height:100%;object-fit:cover}
@@ -830,6 +831,10 @@ a.card:hover .card-badge{transform:scale(1.06) rotate(-2deg)}
       <button type="button" class="gf" data-f="historia" aria-pressed="false" data-i18n="gf_story">Historias</button>
     </div>
     <div class="gmasonry" id="gmasonry" data-gallery>
+        <button type="button" class="gtile" data-kind="post" data-full="img/novocentro/white-friday.webp" aria-label="White Friday · Pelíkano Blanco 15 mm">
+          <img src="img/novocentro/white-friday-sm.webp" width="540" height="720" loading="lazy" alt="White Friday · Pelíkano Blanco 15 mm">
+          <span class="gtile-cap" data-i18n="gn_15">White Friday · Pelíkano Blanco 15 mm</span>
+        </button>
         <button type="button" class="gtile" data-kind="post" data-full="img/novocentro/pelikano-nevado.webp" aria-label="Promoción Pelíkano RH Nevado">
           <img src="img/novocentro/pelikano-nevado-sm.webp" width="540" height="675" loading="lazy" alt="Promoción Pelíkano RH Nevado">
           <span class="gtile-cap" data-i18n="gn_0">Promoción Pelíkano RH Nevado</span>
@@ -897,6 +902,11 @@ a.card:hover .card-badge{transform:scale(1.06) rotate(-2deg)}
       </dl>
     </header>
     <div class="vgrid" data-gallery>
+        <button type="button" class="gtile gtile-vid vtile" data-video="vid/pelikano-blanco.mp4" aria-label="Reel · Pelíkano Blanco 15 mm">
+          <video class="autoloop" src="vid/pelikano-blanco.mp4" poster="vid/pelikano-blanco-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
+          <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
+          <span class="gtile-cap" data-i18n="gn_16">Reel · Pelíkano Blanco 15 mm</span>
+        </button>
         <button type="button" class="gtile gtile-vid vtile" data-video="vid/mamba.mp4" aria-label="Reel · Mamba">
           <video class="autoloop" src="vid/mamba.mp4" poster="vid/mamba-poster.webp" muted loop playsinline preload="none" width="540" height="960" aria-hidden="true" tabindex="-1"></video>
           <span class="gtile-play" aria-hidden="true"><i data-lucide="play"></i></span>
@@ -1004,7 +1014,7 @@ var EN = {
   gn_11:"Reel · Mamba",
   gn_12:"Reel · Arupo",
   gn_13:"Reel · Pelíkano White RH",
-  gn_14:"Reel · Burdeos",
+  gn_14:"Reel · Burdeos", gn_15:"White Friday · Pelíkano White 15 mm", gn_16:"Reel · Pelíkano White 15 mm",
 
   gn_0:"Seasonal promo, Pelíkano RH Nevado",
   gn_1:"Story · Arupo color",
